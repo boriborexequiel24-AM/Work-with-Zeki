@@ -1,0 +1,59 @@
+{
+  "name": "Portfolio — Contact Form Lead",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "portfolio-contact",
+        "authentication": "headerAuth",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "6b1f8a2e-1c3d-4e5f-9a7b-1c2d3e4f5a01",
+      "name": "Contact Form Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "2f6c3b7a-8d4e-4a1b-b5c6-7d8e9f0a1b22"
+    },
+    {
+      "parameters": {
+        "sendTo": "boribor.exequiel24@gmail.com",
+        "subject": "=New portfolio lead: {{ $json.body.name }}",
+        "emailType": "text",
+        "message": "=New inquiry from your portfolio site.\n\nName: {{ $json.body.name }}\nEmail: {{ $json.body.email }}\nSubmitted: {{ $json.body.submittedAt }}\n\nMessage:\n{{ $json.body.message }}",
+        "options": {
+          "appendAttribution": false,
+          "replyTo": "={{ $json.body.email }}"
+        }
+      },
+      "id": "6b1f8a2e-1c3d-4e5f-9a7b-1c2d3e4f5a02",
+      "name": "Notify Me (Gmail)",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"ok\": true }",
+        "options": {}
+      },
+      "id": "6b1f8a2e-1c3d-4e5f-9a7b-1c2d3e4f5a03",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [480, 0]
+    }
+  ],
+  "connections": {
+    "Contact Form Webhook": {
+      "main": [[{ "node": "Notify Me (Gmail)", "type": "main", "index": 0 }]]
+    },
+    "Notify Me (Gmail)": {
+      "main": [[{ "node": "Respond OK", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

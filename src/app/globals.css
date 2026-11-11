@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────────────────── */
+:root {
+  --bg: #07080a;
+  --surface: #0d0f13;
+  --surface-2: #13161c;
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.14);
+  --fg: #ededf0;
+  --muted: #9097a3;
+  --subtle: #5d6470;
+  --accent: #5eead4; /* teal-300 */
+  --accent-2: #818cf8; /* indigo-400 */
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+::selection {
+  background: rgb(94 234 212 / 0.25);
+}
+
+/* ── Utilities ─────────────────────────────────────────────────── */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility text-gradient {
+  background: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Data packet travelling along a workflow edge */
+@keyframes packet {
+  0% { top: 0%; opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgb(94 234 212 / 0.45); }
+  100% { box-shadow: 0 0 0 10px rgb(94 234 212 / 0); }
+}
+
+.animate-packet {
+  animation: packet 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-packet,
+  .animate-pulse-ring { animation: none; }
+}
