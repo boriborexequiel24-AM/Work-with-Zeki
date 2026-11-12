@@ -82,6 +82,12 @@ export function Work() {
                 {p.title}
               </h3>
               <p className="mt-2 text-sm text-pretty text-muted">{p.summary}</p>
+              {p.estimate && (
+                <p className="mt-4 rounded-lg bg-accent-soft px-3 py-2 font-mono text-[11px] text-muted">
+                  <span className="font-medium text-accent">{p.estimate.saved} saved</span>{" "}
+                  <span className="text-subtle">(est. from {p.estimate.basis})</span>
+                </p>
+              )}
               <div className="mt-auto flex flex-wrap gap-1.5 pt-6">
                 {p.tools.map((t) => (
                   <Tag key={t}>{t}</Tag>

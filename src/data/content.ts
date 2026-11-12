@@ -21,6 +21,35 @@ export const stats = [
   { value: "3", label: "Platform certifications" },
 ];
 
+// Published industry research, not results from my own clients.
+// Every entry must link to its source. Don't add a stat without one.
+export const industryStats = [
+  {
+    value: "28%",
+    label: "of the workweek goes to reading and answering email.",
+    source: "McKinsey Global Institute, 2012",
+    url: "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-social-economy",
+  },
+  {
+    value: "7×",
+    label: "more likely to reach a decision-maker when a lead gets a reply within an hour.",
+    source: "Harvard Business Review, 2011",
+    url: "https://hbr.org/2011/03/the-short-life-of-online-sales-leads",
+  },
+  {
+    value: "5.5 hrs",
+    label: "a week the average sales rep spends typing data into their CRM.",
+    source: "Introhive survey, via HubSpot",
+    url: "https://blog.hubspot.com/sales/why-your-sales-reps-hate-crm-software",
+  },
+  {
+    value: "4.9 hrs",
+    label: "a week workers believe they'd save with better processes.",
+    source: "Asana Anatomy of Work, 2023",
+    url: "https://investors.asana.com/news-releases/news-release-details/asana-anatomy-work-global-index-2023-smart-collaboration-and",
+  },
+];
+
 export const services = [
   {
     title: "Enterprise Workflow Automation",
@@ -138,6 +167,12 @@ export type Project = {
   tools: string[];
   /** Workflow screenshots in public/images/projects. The first one is the cover. */
   images: string[];
+  /**
+   * Zeki's own before/after estimate for this client. Only add one he has confirmed,
+   * built from how often the task happened and how long it took by hand.
+   * e.g. { saved: "~8 hrs/week", basis: "~20 emails/day × ~5 min each" }
+   */
+  estimate?: { saved: string; basis: string };
   featured?: boolean;
 };
 
@@ -150,6 +185,9 @@ export const projects: Project[] = [
     summary:
       "Monitors carrier Gmail, AI-classifies claim data with OpenAI, parses PDF attachments, syncs JobNimbus contacts, jobs and tasks, and assigns leads via round-robin with dashboard logging.",
     tools: ["n8n", "JobNimbus", "OpenAI", "Gmail"],
+    // From Zeki (2026-11-12): 20 emails/day normally, up to 40 when busy, 5-10 min each by hand.
+    // Low end: 20 × 5 min × 5 days ≈ 8.3 hrs/week. High end: 40 × 10 min × 5 days ≈ 33 hrs/week.
+    estimate: { saved: "8+ hrs/week", basis: "20 to 40 carrier emails/day × 5 to 10 min each" },
     featured: true,
   },
   {

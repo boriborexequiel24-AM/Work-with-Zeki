@@ -6,6 +6,7 @@ import { Nav } from "@/components/Nav";
 import { Pricing } from "@/components/Pricing";
 import { Services } from "@/components/Services";
 import { Tools } from "@/components/Tools";
+import { WhyAutomate } from "@/components/WhyAutomate";
 import { Work } from "@/components/Work";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <WhyAutomate />
         <Services />
         <Tools />
         <Work />
