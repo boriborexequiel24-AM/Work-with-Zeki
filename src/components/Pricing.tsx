@@ -8,18 +8,18 @@ export function Pricing() {
         index="05"
         eyebrow="Pricing"
         title="Flexible engagement models."
-        intro="From a same-day fix to a fully scoped automation system — pick what fits."
+        intro="From a same-day fix to a fully scoped automation system. Pick what fits."
       />
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {pricing.map((p) => (
           <li
             key={p.name}
             className={`relative flex flex-col rounded-2xl border p-7 ${
-              p.highlighted ? "border-accent/50 bg-gradient-to-b from-accent/[0.08] to-surface" : "border-line bg-surface"
+              p.highlighted ? "border-accent bg-surface" : "border-line bg-surface"
             }`}
           >
             {p.highlighted && (
-              <span className="absolute -top-3 left-7 rounded-full bg-accent px-2.5 py-0.5 font-mono text-[10px] font-medium tracking-wide text-bg uppercase">
+              <span className="absolute -top-3 left-7 rounded-full bg-accent px-2.5 py-0.5 font-mono text-[10px] font-medium tracking-wide text-on-accent uppercase">
                 Most popular
               </span>
             )}
@@ -40,7 +40,7 @@ export function Pricing() {
             <a
               href="#contact"
               className={`mt-8 rounded-lg px-4 py-2.5 text-center text-sm font-medium transition-colors ${
-                p.highlighted ? "bg-accent text-bg hover:bg-fg" : "border border-line-strong hover:border-accent/60 hover:text-accent"
+                p.highlighted ? "bg-accent text-on-accent hover:opacity-90" : "border border-line-strong hover:border-accent/60 hover:text-accent"
               }`}
             >
               {p.cta}

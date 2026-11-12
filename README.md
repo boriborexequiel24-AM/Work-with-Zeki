@@ -1,6 +1,6 @@
-# Work with Zeki — Automation Portfolio
+# Work with Zeki | Automation Portfolio
 
-**Live site → [work-with-zeki.vercel.app](https://work-with-zeki.vercel.app)**
+**Live site → [workwithzeki.vercel.app](https://workwithzeki.vercel.app)**
 
 The portfolio of **Exequiel "Zeki" Boribor**, Workflow & AI Automation Specialist. I build automations with n8n, Make, Zapier, and LLMs that take repetitive work off a team's plate: lead intake, CRM sync, compliance tracking, and AI-assisted document and content pipelines.
 
@@ -80,4 +80,4 @@ I'm available for freelance automation and AI integration projects.
 
 - **Email:** [boribor.exequiel24@gmail.com](mailto:boribor.exequiel24@gmail.com)
 - **LinkedIn:** [Exequiel Boribor](https://www.linkedin.com/in/exequiel-boribor-98a832189)
-- **Or** use the contact form on the [live site](https://work-with-zeki.vercel.app/#contact). It goes straight into my n8n.
+- **Or** use the contact form on the [live site](https://workwithzeki.vercel.app/#contact). It goes straight into my n8n.

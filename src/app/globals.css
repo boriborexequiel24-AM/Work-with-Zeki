@@ -1,17 +1,43 @@
 @import "tailwindcss";
 
+/* Theme is set on <html data-theme="light|dark"> by the script in layout.tsx,
+   which reads the visitor's saved choice or falls back to their system setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* ── Design tokens ─────────────────────────────────────────────── */
+
+/* Light: clean */
 :root {
-  --bg: #07080a;
-  --surface: #0d0f13;
-  --surface-2: #13161c;
-  --line: rgb(255 255 255 / 0.08);
-  --line-strong: rgb(255 255 255 / 0.14);
-  --fg: #ededf0;
-  --muted: #9097a3;
-  --subtle: #5d6470;
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --surface-2: #f4f4f3;
+  --line: rgb(15 23 42 / 0.08);
+  --line-strong: rgb(15 23 42 / 0.16);
+  --fg: #0c0d0f;
+  --muted: #55595f;
+  --subtle: #8b8f96;
+  --accent: #0f766e; /* teal-700, readable on white */
+  --accent-soft: rgb(15 118 110 / 0.08);
+  --on-accent: #ffffff;
+  --danger: #b91c1c;
+  color-scheme: light;
+}
+
+/* Dark: quiet */
+[data-theme="dark"] {
+  --bg: #0c0d0f;
+  --surface: #121316;
+  --surface-2: #18191d;
+  --line: rgb(255 255 255 / 0.07);
+  --line-strong: rgb(255 255 255 / 0.13);
+  --fg: #e8e8ea;
+  --muted: #9a9ca3;
+  --subtle: #63666d;
   --accent: #5eead4; /* teal-300 */
-  --accent-2: #818cf8; /* indigo-400 */
+  --accent-soft: rgb(94 234 212 / 0.08);
+  --on-accent: #0c0d0f;
+  --danger: #f87171;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -24,14 +50,15 @@
   --color-muted: var(--muted);
   --color-subtle: var(--subtle);
   --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
 }
 
 body {
@@ -40,47 +67,26 @@ body {
 }
 
 ::selection {
-  background: rgb(94 234 212 / 0.25);
+  background: var(--accent-soft);
+  color: var(--fg);
 }
 
-/* ── Utilities ─────────────────────────────────────────────────── */
-@utility bg-grid {
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 56px 56px;
+/* Theme toggle: show the icon for the theme you'd switch TO */
+.theme-icon-sun { display: none; }
+[data-theme="dark"] .theme-icon-sun { display: block; }
+[data-theme="dark"] .theme-icon-moon { display: none; }
+
+/* Status dot */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 
-@utility text-gradient {
-  background: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Data packet travelling along a workflow edge */
-@keyframes packet {
-  0% { top: 0%; opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgb(94 234 212 / 0.45); }
-  100% { box-shadow: 0 0 0 10px rgb(94 234 212 / 0); }
-}
-
-.animate-packet {
-  animation: packet 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 1.8s ease-out infinite;
+.animate-blink {
+  animation: blink 2.4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .animate-packet,
-  .animate-pulse-ring { animation: none; }
+  .animate-blink { animation: none; }
 }

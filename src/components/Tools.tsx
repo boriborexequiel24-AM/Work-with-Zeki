@@ -3,7 +3,7 @@ import { Section, SectionHeader } from "./ui";
 
 export function Tools() {
   return (
-    <Section id="stack" className="border-y border-line bg-surface/40">
+    <Section id="stack" className="border-y border-line bg-surface">
       <SectionHeader
         index="02"
         eyebrow="Stack"

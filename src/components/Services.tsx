@@ -8,7 +8,7 @@ export function Services() {
         index="01"
         eyebrow="Services"
         title="Bridging technology and business outcomes."
-        intro="I help teams replace repetitive manual work with reliable systems — from a single integration to a full AI-assisted operation."
+        intro="I help teams replace repetitive manual work with reliable systems, from a single integration to a full AI-assisted operation."
       />
 
       <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">

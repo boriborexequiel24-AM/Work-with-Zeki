@@ -43,7 +43,7 @@ export function Contact() {
             eyebrow="Contact"
             title={
               <>
-                Have a process that eats your team&apos;s time? <span className="text-gradient">Let&apos;s automate it.</span>
+                Have a process that eats your team&apos;s time? <span className="text-accent">Let&apos;s automate it.</span>
               </>
             }
             intro="I'm currently available for freelance work and consulting. Tell me what you're trying to fix and I'll reply within a day."
@@ -93,16 +93,16 @@ export function Contact() {
           <button
             type="submit"
             disabled={sending}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-fg px-5 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent disabled:cursor-wait disabled:opacity-60"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-fg px-5 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent hover:text-on-accent disabled:cursor-wait disabled:opacity-60"
           >
             {sending ? "Sending…" : <>Send message <Arrow /></>}
           </button>
           <p role="status" aria-live="polite" className="min-h-4 text-center text-xs">
             {status.state === "sent" && (
-              <span className="text-accent">Thanks — your message is in. I&apos;ll get back to you within a day.</span>
+              <span className="text-accent">Thanks, your message is in. I&apos;ll get back to you within a day.</span>
             )}
             {status.state === "error" && (
-              <span className="text-red-400">
+              <span className="text-danger">
                 {status.message} You can also email me at{" "}
                 <a href={`mailto:${profile.email}`} className="underline">
                   {profile.email}

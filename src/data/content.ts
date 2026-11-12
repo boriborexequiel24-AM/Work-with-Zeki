@@ -10,6 +10,8 @@ export const profile = {
   email: "boribor.exequiel24@gmail.com",
   linkedin: "https://www.linkedin.com/in/exequiel-boribor-98a832189",
   availability: "Available for freelance & consulting",
+  photo: "/images/profile.png",
+  logo: "/images/logo.png",
 };
 
 export const stats = [
@@ -26,7 +28,7 @@ export const services = [
   },
   {
     title: "AI & LLM Integration",
-    body: "Embedding OpenAI, Claude, and Gemini into real operations — classification, extraction, and generation with guardrails.",
+    body: "Embedding OpenAI, Claude, and Gemini into real operations: classification, extraction, and generation with guardrails.",
   },
   {
     title: "CRM Integration & Data",
@@ -87,7 +89,7 @@ export const experience: Experience[] = [
   {
     role: "CRM & AI Automation Specialist",
     org: "Insurance & Public Adjusting Operations",
-    period: "Jan 2026 — Aug 2026",
+    period: "Jan 2026 to Aug 2026",
     location: "Freelance · US-based client",
     summary:
       "Designed and deployed AI-assisted operational systems for insurance and public adjusting workflows using n8n, CRM integrations, and large language models.",
@@ -114,7 +116,7 @@ export const experience: Experience[] = [
     period: "Contract",
     location: "Netherlands-based client",
     summary:
-      "Started with simple spreadsheet-driven automations and evolved them into a fully managed AI content system — producing UGC-style assets at scale, from brief to final delivery, without manual intervention.",
+      "Started with simple spreadsheet-driven automations and evolved them into a fully managed AI content system. It now produces UGC-style assets at scale, from brief to final delivery, without manual intervention.",
     highlights: [
       "End-to-end content production system replacing fragmented manual workflows",
       "AI text, image, voice, and video generation in one pipeline with built-in quality controls",
@@ -134,12 +136,15 @@ export type Project = {
   category: string;
   summary: string;
   tools: string[];
+  /** Workflow screenshots in public/images/projects. The first one is the cover. */
+  images: string[];
   featured?: boolean;
 };
 
 export const projects: Project[] = [
   {
     title: "Lead Processing + Inbound Carrier Email Automation",
+    images: ["/images/projects/lead-automated-processing.png"],
     platform: "n8n",
     category: "CRM Automation",
     summary:
@@ -149,6 +154,7 @@ export const projects: Project[] = [
   },
   {
     title: "Auto-Supplement Engine",
+    images: ["/images/projects/auto-supplement-engine.png"],
     platform: "n8n",
     category: "AI Workflow",
     summary:
@@ -158,6 +164,7 @@ export const projects: Project[] = [
   },
   {
     title: "Suit Limitation + Appraisal Compliance Tracker",
+    images: ["/images/projects/suit-limitation-compliance-tracker.png"],
     platform: "n8n",
     category: "CRM Automation",
     summary:
@@ -167,6 +174,7 @@ export const projects: Project[] = [
   },
   {
     title: "AI UGC Content Automation System",
+    images: ["/images/projects/ai-ugc-content-automation.png"],
     platform: "n8n",
     category: "Content Pipeline",
     summary:
@@ -176,6 +184,7 @@ export const projects: Project[] = [
   },
   {
     title: "Carrier Follow-Up Sequence",
+    images: ["/images/projects/carrier-followup-sequence.png"],
     platform: "n8n",
     category: "CRM Automation",
     summary:
@@ -184,6 +193,7 @@ export const projects: Project[] = [
   },
   {
     title: "AI Image Generation with Nano Banana Pro",
+    images: ["/images/projects/ai-image-generation-nano-banana.png"],
     platform: "n8n",
     category: "AI Workflow",
     summary:
@@ -192,6 +202,7 @@ export const projects: Project[] = [
   },
   {
     title: "Outbound Lead Qualifier with Vapi",
+    images: ["/images/projects/outbound-lead-qualifier-vapi.png"],
     platform: "n8n",
     category: "Voice / Calling",
     summary:
@@ -200,6 +211,7 @@ export const projects: Project[] = [
   },
   {
     title: "Facebook AI Agent",
+    images: ["/images/projects/facebook-ai-agent.png"],
     platform: "n8n",
     category: "AI Workflow",
     summary: "Webhook-driven Facebook Messenger agent backed by OpenRouter and Google Gemini.",
@@ -207,6 +219,7 @@ export const projects: Project[] = [
   },
   {
     title: "Inbox Intelligence Router",
+    images: ["/images/projects/inbox-intelligence-router.png"],
     platform: "n8n",
     category: "Email Automation",
     summary: "AI text classifier that routes Gmail messages into separate downstream workflows based on intent.",
@@ -214,6 +227,7 @@ export const projects: Project[] = [
   },
   {
     title: "Task Completion Accounting Workflow",
+    images: ["/images/projects/task-completion-accounting-workflow.png"],
     platform: "Make",
     category: "Reporting",
     summary:
@@ -222,6 +236,7 @@ export const projects: Project[] = [
   },
   {
     title: "Auto Sort Gmail Attachments",
+    images: ["/images/projects/auto-sort-gmail-attachments.png"],
     platform: "Make",
     category: "Email Automation",
     summary: "AI classifies inbound Gmail attachments and files them into the correct Google Drive folders.",
@@ -229,6 +244,7 @@ export const projects: Project[] = [
   },
   {
     title: "Asana CRM Lead Engagement Automation",
+    images: ["/images/projects/asana-crm-lead-engagement.png"],
     platform: "Zapier",
     category: "CRM Automation",
     summary:
@@ -237,6 +253,7 @@ export const projects: Project[] = [
   },
   {
     title: "AI Content Repurposing",
+    images: ["/images/projects/ai-content-repurposing.png"],
     platform: "Zapier",
     category: "Content Pipeline",
     summary: "Transcribes a single source video and republishes it as platform-tailored posts on Facebook and LinkedIn.",
@@ -244,6 +261,7 @@ export const projects: Project[] = [
   },
   {
     title: "Lead Capture With Instant Follow-Up",
+    images: ["/images/projects/lead-capture-part1.png", "/images/projects/lead-capture-part2.png"],
     platform: "GoHighLevel",
     category: "CRM Automation",
     summary:
@@ -253,9 +271,9 @@ export const projects: Project[] = [
 ];
 
 export const certifications = [
-  { platform: "Zapier", title: "AI Automation with Zapier", date: "Oct 2025" },
-  { platform: "Make", title: "AI Automation with Make.com", date: "Nov 2025" },
-  { platform: "n8n", title: "AI Automation with n8n", date: "Dec 2025" },
+  { platform: "Zapier", title: "AI Automation with Zapier", date: "Oct 2025", image: "/images/certs/zapier.png" },
+  { platform: "Make", title: "AI Automation with Make.com", date: "Nov 2025", image: "/images/certs/make.png" },
+  { platform: "n8n", title: "AI Automation with n8n", date: "Dec 2025", image: "/images/certs/n8n.png" },
 ].map((c) => ({ ...c, issuer: "Technical Virtual Assistants PH" }));
 
 export const pricing = [
