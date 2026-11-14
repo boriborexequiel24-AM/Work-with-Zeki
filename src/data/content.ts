@@ -9,19 +9,22 @@ export const profile = {
     "I design enterprise workflow automations and AI integrations that turn complex business processes into streamlined, intelligent systems.",
   email: "boribor.exequiel24@gmail.com",
   linkedin: "https://www.linkedin.com/in/exequiel-boribor-98a832189",
+  github: "https://github.com/boriborexequiel24-AM",
   availability: "Available for freelance & consulting",
   photo: "/images/profile.png",
   logo: "/images/logo.png",
 };
 
 export const stats = [
-  { value: "15", label: "Automations shipped" },
+  { value: "14", label: "Automations shipped" },
   { value: "2", label: "International clients" },
   { value: "40+", label: "Tools integrated" },
   { value: "3", label: "Platform certifications" },
 ];
 
 // Published industry research, not results from my own clients.
+// Not rendered right now: the "Why automate?" band was replaced by the Agentic
+// section. Kept because every entry is sourced and hard to reassemble.
 // Every entry must link to its source. Don't add a stat without one.
 export const industryStats = [
   {
@@ -100,6 +103,10 @@ export const toolGroups = [
     tools: ["Gmail", "Slack", "Twilio", "WhatsApp", "Telegram", "Discord", "Facebook", "LinkedIn"],
   },
   { label: "Data & Finance", tools: ["Google Sheets", "Google Drive", "Xero", "Stripe", "PayPal"] },
+  {
+    label: "Code & Deploy",
+    tools: ["Claude Code", "Next.js", "TypeScript", "Tailwind CSS", "Python", "Vercel", "GitHub"],
+  },
 ];
 
 export type Experience = {
@@ -159,6 +166,46 @@ export const experience: Experience[] = [
 
 export type Platform = "n8n" | "Make" | "Zapier" | "GoHighLevel";
 
+/**
+ * Systems built with Claude Code: applications I design and write, not platform
+ * workflows. They have public source and a demo anyone can use, so they go in
+ * their own section rather than with the client automations in `projects`.
+ */
+export type CodeProject = {
+  title: string;
+  /** Short line above the title, e.g. the business area it covers. */
+  tagline: string;
+  summary: string;
+  /** Cover screenshot in public/images/projects. */
+  image: string;
+  stack: string[];
+  /** Measured during the build. Never add a figure that wasn't. */
+  facts: { value: string; label: string }[];
+  liveUrl?: string;
+  repoUrl?: string;
+};
+
+export const codeProjects: CodeProject[] = [
+  {
+    title: "AI Invoice Processing",
+    tagline: "Accounts payable, end to end",
+    summary:
+      "An invoice PDF arrives by email or upload, AI reads it, 12 validation checks run, and a one-click approval in Slack posts it to Xero as a bill with the PDF attached. Every invoice keeps a timeline from arrival to posted, and anything unusual is flagged in plain English. The dashboard is public: try it with a sample invoice or your own PDF.",
+    image: "/images/projects/ai-invoice-processing.png",
+    stack: ["n8n", "OpenAI", "Supabase", "Slack", "Xero", "Next.js"],
+    // All four measured during the build (see the repo's extraction eval).
+    // No time-saved figure here: the manual baseline is an industry rule of thumb.
+    facts: [
+      { value: "13 / 13", label: "test invoices read perfectly, every field" },
+      { value: "12", label: "checks, each with a plain-English reason" },
+      { value: "$0.0025", label: "in AI cost per invoice" },
+      { value: "1", label: "human step: approve or reject" },
+    ],
+    liveUrl: "https://ai-invoice-processing-six.vercel.app",
+    repoUrl: "https://github.com/boriborexequiel24-AM/ai-invoice-processing",
+  },
+];
+
 export type Project = {
   title: string;
   platform: Platform;
@@ -173,27 +220,10 @@ export type Project = {
    * e.g. { saved: "~8 hrs/week", basis: "~20 emails/day × ~5 min each" }
    */
   estimate?: { saved: string; basis: string };
-  /** Public links, when the project has them. Both optional: most client work has neither. */
-  liveUrl?: string;
-  repoUrl?: string;
   featured?: boolean;
 };
 
 export const projects: Project[] = [
-  {
-    title: "AI Invoice Processing (Accounts Payable)",
-    images: ["/images/projects/ai-invoice-processing.png"],
-    platform: "n8n",
-    category: "Finance Operations",
-    summary:
-      "An invoice PDF arrives by email or upload, AI reads it, 12 validation checks run, and a one-click approval in Slack posts it to Xero as a bill with the PDF attached. 13 of 13 test invoices were read perfectly, at about a quarter of a cent each.",
-    tools: ["n8n", "OpenAI", "Supabase", "Slack", "Xero", "Next.js"],
-    // No estimate: the 5 to 10 min manual baseline in the case study is an industry
-    // rule of thumb, not measured here. Accuracy, cost and check count are measured.
-    liveUrl: "https://ai-invoice-processing-six.vercel.app",
-    repoUrl: "https://github.com/boriborexequiel24-AM/ai-invoice-processing",
-    featured: true,
-  },
   {
     title: "Lead Processing + Inbound Carrier Email Automation",
     images: ["/images/projects/lead-automated-processing.png"],
@@ -375,6 +405,7 @@ export const pricing = [
 ];
 
 export const nav = [
+  { label: "Agentic", href: "#agentic" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },

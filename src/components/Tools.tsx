@@ -5,7 +5,7 @@ export function Tools() {
   return (
     <Section id="stack" className="border-y border-line bg-surface">
       <SectionHeader
-        index="02"
+        index="03"
         eyebrow="Stack"
         title="The tools I wire together."
         intro="Platform-agnostic: I pick the right tool for the job, then connect it to everything else."

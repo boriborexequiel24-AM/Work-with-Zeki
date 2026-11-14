@@ -39,7 +39,7 @@ export function Contact() {
       <div className="grid gap-14 lg:grid-cols-2">
         <div>
           <SectionHeader
-            index="06"
+            index="07"
             eyebrow="Contact"
             title={
               <>
@@ -67,6 +67,19 @@ export function Contact() {
                   className="inline-flex items-center gap-2 text-lg hover:text-accent"
                 >
                   Connect with me <Arrow />
+                </a>
+              </dd>
+            </div>
+            <div>
+              <dt className="font-mono text-xs text-subtle uppercase">GitHub</dt>
+              <dd>
+                <a
+                  href={profile.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-lg hover:text-accent"
+                >
+                  See what I&apos;m building <Arrow />
                 </a>
               </dd>
             </div>

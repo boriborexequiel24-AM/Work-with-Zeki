@@ -5,7 +5,7 @@ import { Section, SectionHeader, Tag } from "./ui";
 export function Experience() {
   return (
     <Section id="experience" className="border-t border-line">
-      <SectionHeader index="04" eyebrow="Experience" title="Where I've done the work." />
+      <SectionHeader index="05" eyebrow="Experience" title="Where I've done the work." />
 
       <ol className="space-y-6">
         {experience.map((e) => (

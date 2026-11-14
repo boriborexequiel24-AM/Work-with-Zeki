@@ -5,7 +5,7 @@ export function Pricing() {
   return (
     <Section id="pricing" className="border-t border-line">
       <SectionHeader
-        index="05"
+        index="06"
         eyebrow="Pricing"
         title="Flexible engagement models."
         intro="From a same-day fix to a fully scoped automation system. Pick what fits."

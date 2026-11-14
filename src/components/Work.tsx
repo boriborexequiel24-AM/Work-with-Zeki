@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { projects, type Platform } from "@/data/content";
-import { Arrow, Section, SectionHeader, Tag } from "./ui";
+import { Section, SectionHeader, Tag } from "./ui";
 
 const filters: ("All" | Platform)[] = [
   "All",
@@ -21,7 +21,7 @@ export function Work() {
   return (
     <Section id="work">
       <SectionHeader
-        index="03"
+        index="04"
         eyebrow="Selected work"
         title="Real systems, running in production."
         intro={`${projects.length} automations built for real clients and operations. Here's what each one does and the stack behind it.`}
@@ -67,7 +67,7 @@ export function Work() {
             <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-bg">
               <Image
                 src={p.images[0]}
-                alt={`Screenshot from the ${p.title} project`}
+                alt={`${p.title} workflow in ${p.platform}`}
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
@@ -88,36 +88,10 @@ export function Work() {
                   <span className="text-subtle">(est. from {p.estimate.basis})</span>
                 </p>
               )}
-              <div className="mt-auto pt-6">
-                <div className="flex flex-wrap gap-1.5">
-                  {p.tools.map((t) => (
-                    <Tag key={t}>{t}</Tag>
-                  ))}
-                </div>
-                {(p.liveUrl || p.repoUrl) && (
-                  <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-4 font-mono text-[11px]">
-                    {p.liveUrl && (
-                      <a
-                        href={p.liveUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 text-accent underline-offset-4 hover:underline"
-                      >
-                        Try the live demo <Arrow />
-                      </a>
-                    )}
-                    {p.repoUrl && (
-                      <a
-                        href={p.repoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1.5 text-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
-                      >
-                        View the code <Arrow />
-                      </a>
-                    )}
-                  </div>
-                )}
+              <div className="mt-auto flex flex-wrap gap-1.5 pt-6">
+                {p.tools.map((t) => (
+                  <Tag key={t}>{t}</Tag>
+                ))}
               </div>
             </div>
           </li>

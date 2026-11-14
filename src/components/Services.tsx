@@ -5,7 +5,7 @@ export function Services() {
   return (
     <Section id="services">
       <SectionHeader
-        index="01"
+        index="02"
         eyebrow="Services"
         title="Bridging technology and business outcomes."
         intro="I help teams replace repetitive manual work with reliable systems, from a single integration to a full AI-assisted operation."
