@@ -176,8 +176,12 @@ export type CodeProject = {
   /** Short line above the title, e.g. the business area it covers. */
   tagline: string;
   summary: string;
-  /** Cover screenshot in public/images/projects. */
-  image: string;
+  /**
+   * Gallery screenshots in public/images/projects, shown in this order.
+   * The first one is the cover. Crop out browser chrome before adding one:
+   * an n8n canvas with the address bar still in it leaks the server URL.
+   */
+  shots: { src: string; caption: string }[];
   stack: string[];
   /** Measured during the build. Never add a figure that wasn't. */
   facts: { value: string; label: string }[];
@@ -191,7 +195,20 @@ export const codeProjects: CodeProject[] = [
     tagline: "Accounts payable, end to end",
     summary:
       "An invoice PDF arrives by email or upload, AI reads it, 12 validation checks run, and a one-click approval in Slack posts it to Xero as a bill with the PDF attached. Every invoice keeps a timeline from arrival to posted, and anything unusual is flagged in plain English. The dashboard is public: try it with a sample invoice or your own PDF.",
-    image: "/images/projects/ai-invoice-processing.png",
+    shots: [
+      {
+        src: "/images/projects/ai-invoice-processing.png",
+        caption: "The five steps, and a demo anyone can run",
+      },
+      {
+        src: "/images/projects/ai-invoice-processing-detail.png",
+        caption: "The original PDF beside what the AI read, with a confidence score on every field",
+      },
+      {
+        src: "/images/projects/ai-invoice-processing-list.png",
+        caption: "Every invoice, its status, and the plain-English reason it was flagged",
+      },
+    ],
     stack: ["n8n", "OpenAI", "Supabase", "Slack", "Xero", "Next.js"],
     // All four measured during the build (see the repo's extraction eval).
     // No time-saved figure here: the manual baseline is an industry rule of thumb.

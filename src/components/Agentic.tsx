@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { codeProjects } from "@/data/content";
+import { Gallery } from "./Gallery";
 import { Arrow, Section, SectionHeader, Tag } from "./ui";
 
 // Systems built with Claude Code. One project for now, but the layout is a list:
@@ -21,16 +21,8 @@ export function Agentic() {
             className="overflow-hidden rounded-2xl border border-line bg-surface"
           >
             <div className="grid lg:grid-cols-2">
-              <div className="flex items-center justify-center border-b border-line bg-bg p-5 sm:p-7 lg:border-r lg:border-b-0">
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-line">
-                  <Image
-                    src={p.image}
-                    alt={`The ${p.title} dashboard`}
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="object-cover object-top"
-                  />
-                </div>
+              <div className="border-b border-line bg-bg p-5 sm:p-7 lg:flex lg:flex-col lg:justify-center lg:border-r lg:border-b-0">
+                <Gallery shots={p.shots} label={p.title} />
               </div>
 
               <div className="flex flex-col p-7 sm:p-9">
