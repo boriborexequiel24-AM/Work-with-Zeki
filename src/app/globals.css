@@ -23,6 +23,13 @@
   color-scheme: light;
 }
 
+/* The n8n editor canvas in the workflow screenshots. Same in both themes,
+   because it is the colour of the images themselves: a shot shown whole
+   sits on this instead of the page background, so there is no seam. */
+:root {
+  --canvas: #171717;
+}
+
 /* Dark: quiet */
 [data-theme="dark"] {
   --bg: #0c0d0f;
@@ -53,6 +60,7 @@
   --color-accent-soft: var(--accent-soft);
   --color-on-accent: var(--on-accent);
   --color-danger: var(--danger);
+  --color-canvas: var(--canvas);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

@@ -72,7 +72,9 @@ export function Gallery({ shots, label }: { shots: Shot[]; label: string }) {
               onClick={() => goTo(targetRef.current + 1)}
               aria-label={many ? `${label}: next screenshot` : `${label} screenshot`}
               tabIndex={i === index ? 0 : -1}
-              className="relative aspect-[16/10] w-full shrink-0 snap-start cursor-pointer bg-bg sm:aspect-[21/9]"
+              className={`relative aspect-[16/10] w-full shrink-0 snap-start cursor-pointer sm:aspect-[21/9] ${
+                shot.fit === "contain" ? "bg-canvas" : "bg-bg"
+              }`}
             >
               <Image
                 src={shot.src}
