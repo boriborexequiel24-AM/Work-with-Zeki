@@ -181,7 +181,16 @@ export type CodeProject = {
    * The first one is the cover. Crop out browser chrome before adding one:
    * an n8n canvas with the address bar still in it leaks the server URL.
    */
-  shots: { src: string; caption: string }[];
+  shots: {
+    src: string;
+    caption: string;
+    /**
+     * "contain" fits the whole image in the frame instead of filling it.
+     * Use it for n8n canvases, which are far wider than the frame and lose
+     * most of the flow when cropped.
+     */
+    fit?: "contain";
+  }[];
   stack: string[];
   /** Measured during the build. Never add a figure that wasn't. */
   facts: { value: string; label: string }[];
@@ -207,6 +216,30 @@ export const codeProjects: CodeProject[] = [
       {
         src: "/images/projects/ai-invoice-processing-list.png",
         caption: "Every invoice, its status, and the plain-English reason it was flagged",
+      },
+      {
+        src: "/images/projects/ai-invoice-processing-flow-intake.png",
+        caption:
+          "Intake and extraction in n8n: fingerprint the file, read it with AI, run the checks, then ask Slack",
+        fit: "contain",
+      },
+      {
+        src: "/images/projects/ai-invoice-processing-flow-approval.png",
+        caption:
+          "Approval and posting: every Slack click is signature-checked, then the bill and its PDF go to Xero",
+        fit: "contain",
+      },
+      {
+        src: "/images/projects/ai-invoice-processing-flow-email.png",
+        caption:
+          "Email intake: a labelled Gmail message hands its PDF attachments straight to the pipeline",
+        fit: "contain",
+      },
+      {
+        src: "/images/projects/ai-invoice-processing-flow-cleanup.png",
+        caption:
+          "Housekeeping: demo uploads and their Slack messages are deleted after 24 hours",
+        fit: "contain",
       },
     ],
     stack: ["n8n", "OpenAI", "Supabase", "Slack", "Xero", "Next.js"],

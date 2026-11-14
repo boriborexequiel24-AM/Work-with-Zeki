@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-type Shot = { src: string; caption: string };
+type Shot = { src: string; caption: string; fit?: "contain" };
 
 /**
  * Horizontal screenshot track. Clicking a shot moves to the next one and wraps
@@ -72,14 +72,18 @@ export function Gallery({ shots, label }: { shots: Shot[]; label: string }) {
               onClick={() => goTo(targetRef.current + 1)}
               aria-label={many ? `${label}: next screenshot` : `${label} screenshot`}
               tabIndex={i === index ? 0 : -1}
-              className="relative aspect-[16/10] w-full shrink-0 snap-start cursor-pointer bg-bg"
+              className="relative aspect-[16/10] w-full shrink-0 snap-start cursor-pointer bg-bg sm:aspect-[21/9]"
             >
               <Image
                 src={shot.src}
                 alt={shot.caption}
                 fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover object-top"
+                sizes="(min-width: 1536px) 1280px, 100vw"
+                className={
+                  shot.fit === "contain"
+                    ? "object-contain object-center"
+                    : "object-cover object-top"
+                }
                 priority={i === 0}
               />
             </button>
