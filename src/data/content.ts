@@ -10,7 +10,7 @@ export const profile = {
   email: "boribor.exequiel24@gmail.com",
   linkedin: "https://www.linkedin.com/in/exequiel-boribor-98a832189",
   github: "https://github.com/boriborexequiel24-AM",
-  availability: "Available for freelance & consulting",
+  availability: "Open to roles and contract work",
   photo: "/images/profile.png",
   logo: "/images/logo.png",
 };
@@ -411,54 +411,59 @@ export const certifications = [
   { platform: "n8n", title: "AI Automation with n8n", date: "Dec 2025", image: "/images/certs/n8n.png" },
 ].map((c) => ({ ...c, issuer: "Technical Virtual Assistants PH" }));
 
-export const pricing = [
-  {
-    name: "Quick Fix",
-    price: "$30",
-    unit: "per fix",
-    blurb: "Fast fixes and patches for urgent issues.",
-    features: ["Emergency support", "Bug fixes", "Minor adjustments", "Same-day response"],
-    cta: "Get help",
+// How I'm open to working. Deliberately no rates: what the work costs depends
+// on what it is, and that comes out of the conversation, not a card on a page.
+export const engagement = {
+  intro: {
+    title: "What a first conversation looks like",
+    body: "About twenty minutes. You walk me through the role or the process you want fixed, I tell you how I'd approach it and whether I'm the right person for it. No deck, no pitch. If it's a fit we talk about scope and terms from there.",
+    cta: "Start a conversation",
   },
-  {
-    name: "Hourly",
-    price: "$15",
-    unit: "/ hour",
-    blurb: "Pay-as-you-go for flexible needs.",
-    features: ["Small tasks", "No long-term commitment", "Direct communication", "Quick turnaround"],
-    cta: "Get started",
-  },
-  {
-    name: "Project-Based",
-    price: "Custom",
-    unit: "scoped to you",
-    blurb: "End-to-end automation systems built around your business.",
-    features: [
-      "Full project scope",
-      "Dedicated development time",
-      "Full documentation",
-      "Post-launch support",
-      "Custom integrations",
-      "Scalable architecture",
-    ],
-    cta: "Let's talk",
-    highlighted: true,
-  },
-  {
-    name: "Maintenance",
-    price: "$500",
-    unit: "/ month",
-    blurb: "Ongoing support and optimization.",
-    features: ["Monthly retainer", "Priority support", "Regular updates", "Performance monitoring", "System optimization"],
-    cta: "Subscribe",
-  },
-];
+  openTo: [
+    {
+      kind: "Employment",
+      name: "A role on your team",
+      blurb: "Full-time or part-time, remote. Automation, AI integration, or operations engineering.",
+      points: [
+        "Owns systems end to end, from design to handover",
+        "Works inside the stack you already run",
+        "Writes the documentation as it goes",
+      ],
+    },
+    {
+      kind: "Project work",
+      name: "A scoped project",
+      blurb: "One process, built properly and handed over. Scope agreed in writing before anything starts.",
+      points: [
+        "Scope and success criteria set up front",
+        "Built, tested against real cases, documented",
+        "Handover so your team can run it without me",
+      ],
+    },
+    {
+      kind: "Retainer",
+      name: "Ongoing support",
+      blurb: "Keeping live automations healthy once they're carrying real work.",
+      points: [
+        "Monitoring, fixes, and changes as the process changes",
+        "Extensions to systems already in production",
+        "A direct line, not a ticket queue",
+      ],
+    },
+  ],
+  // Plain facts. The client regions come from the roles in Experience.
+  facts: [
+    { label: "Working", value: "Remote, with US and EU clients" },
+    { label: "Open to", value: "Full-time, part-time, or contract" },
+    { label: "Reply", value: "Within one business day" },
+  ],
+};
 
 export const nav = [
   { label: "Agentic", href: "#agentic" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Hiring", href: "#hiring" },
   { label: "Contact", href: "#contact" },
 ];

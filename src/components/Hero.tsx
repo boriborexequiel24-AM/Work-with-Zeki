@@ -46,7 +46,7 @@ export function Hero() {
               See my work <Arrow />
             </ButtonLink>
             <ButtonLink href="#contact" variant="ghost">
-              Start a project
+              Get in touch
             </ButtonLink>
           </div>
 

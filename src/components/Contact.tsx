@@ -49,7 +49,7 @@ export function Contact() {
                 Have a process that eats your team&apos;s time? <span className="text-accent">Let&apos;s automate it.</span>
               </>
             }
-            intro="I'm currently available for freelance work and consulting. Tell me what you're trying to fix and I'll reply within a day."
+            intro="I'm open to a role on a team and to contract work. Tell me about the role, or about the process you want fixed, and I'll reply within a day."
           />
           <dl className="space-y-5">
             <div>
