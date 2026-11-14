@@ -6,6 +6,9 @@ import { Arrow, Section, SectionHeader } from "./ui";
 
 type Status = { state: "idle" | "sending" | "sent" } | { state: "error"; message: string };
 
+// Show the address itself, the way the email row does, rather than a label.
+const short = (url: string) => url.replace(/^https:\/\/(www\.)?/, "");
+
 // Posts to /api/contact, which forwards to an n8n webhook (see src/app/api/contact/route.ts).
 export function Contact() {
   const [status, setStatus] = useState<Status>({ state: "idle" });
@@ -64,9 +67,9 @@ export function Contact() {
                   href={profile.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-lg hover:text-accent"
+                  className="text-lg break-words hover:text-accent"
                 >
-                  Connect with me <Arrow />
+                  {short(profile.linkedin)}
                 </a>
               </dd>
             </div>
@@ -77,9 +80,9 @@ export function Contact() {
                   href={profile.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-lg hover:text-accent"
+                  className="text-lg break-words hover:text-accent"
                 >
-                  See what I&apos;m building <Arrow />
+                  {short(profile.github)}
                 </a>
               </dd>
             </div>
