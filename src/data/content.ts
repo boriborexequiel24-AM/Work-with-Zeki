@@ -15,7 +15,7 @@ export const profile = {
 };
 
 export const stats = [
-  { value: "14", label: "Automations shipped" },
+  { value: "15", label: "Automations shipped" },
   { value: "2", label: "International clients" },
   { value: "40+", label: "Tools integrated" },
   { value: "3", label: "Platform certifications" },
@@ -173,10 +173,27 @@ export type Project = {
    * e.g. { saved: "~8 hrs/week", basis: "~20 emails/day × ~5 min each" }
    */
   estimate?: { saved: string; basis: string };
+  /** Public links, when the project has them. Both optional: most client work has neither. */
+  liveUrl?: string;
+  repoUrl?: string;
   featured?: boolean;
 };
 
 export const projects: Project[] = [
+  {
+    title: "AI Invoice Processing (Accounts Payable)",
+    images: ["/images/projects/ai-invoice-processing.png"],
+    platform: "n8n",
+    category: "Finance Operations",
+    summary:
+      "An invoice PDF arrives by email or upload, AI reads it, 12 validation checks run, and a one-click approval in Slack posts it to Xero as a bill with the PDF attached. 13 of 13 test invoices were read perfectly, at about a quarter of a cent each.",
+    tools: ["n8n", "OpenAI", "Supabase", "Slack", "Xero", "Next.js"],
+    // No estimate: the 5 to 10 min manual baseline in the case study is an industry
+    // rule of thumb, not measured here. Accuracy, cost and check count are measured.
+    liveUrl: "https://ai-invoice-processing-six.vercel.app",
+    repoUrl: "https://github.com/boriborexequiel24-AM/ai-invoice-processing",
+    featured: true,
+  },
   {
     title: "Lead Processing + Inbound Carrier Email Automation",
     images: ["/images/projects/lead-automated-processing.png"],
