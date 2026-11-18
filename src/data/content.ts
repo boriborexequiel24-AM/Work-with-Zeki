@@ -273,6 +273,41 @@ export const codeProjects: CodeProject[] = [
         src: "/images/projects/lead-warden-lead.png",
         caption: "One lead from start to close, with the reason for every decision",
       },
+      {
+        src: "/images/projects/lead-warden-flow-agent.png",
+        caption:
+          "The agent turn in n8n: read the lead with AI, pick the next step, check it against the rules, then reply by email or Slack",
+        fit: "contain",
+      },
+      {
+        src: "/images/projects/lead-warden-flow-email.png",
+        caption:
+          "Email intake: every minute, labelled Gmail messages are handed to the agent, then the label comes off",
+        fit: "contain",
+      },
+      {
+        src: "/images/projects/lead-warden-flow-approval.png",
+        caption:
+          "Price approval: every Slack click is signature-checked, then the approved price is emailed or handed off",
+        fit: "contain",
+      },
+      {
+        src: "/images/projects/lead-warden-flow-follow-ups.png",
+        caption:
+          "Follow-ups: quiet leads get a message written by AI on day 1, 3 and 7, then are closed on day 10",
+        fit: "contain",
+      },
+      {
+        src: "/images/projects/lead-warden-flow-owner-action.png",
+        caption:
+          "Demo owner action: a visitor approves a price on the page, and the Slack message updates to match",
+        fit: "contain",
+      },
+      {
+        src: "/images/projects/lead-warden-flow-cleanup.png",
+        caption: "Housekeeping: visitor leads are deleted after 24 hours",
+        fit: "contain",
+      },
     ],
     stack: ["n8n", "OpenAI", "Supabase", "Slack", "Gmail", "Next.js"],
     // From the repo's agent eval (35 cases) and the live demo's owner view.

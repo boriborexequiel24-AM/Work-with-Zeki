@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, useState, type PointerEvent } from "react";
+import { useCallback, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import type { CodeProject } from "@/data/content";
 import { Arrow, Tag } from "./ui";
 
@@ -262,7 +262,11 @@ function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string 
       </p>
 
       {shots.length > 1 && (
-        <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-7">
+        // On wider screens every thumbnail fits on one row, however many there are.
+        <div
+          className="grid grid-cols-5 gap-1.5 sm:grid-cols-(--thumb-cols)"
+          style={{ "--thumb-cols": `repeat(${shots.length}, minmax(0, 1fr))` } as CSSProperties}
+        >
           {shots.map((s, i) => (
             <button
               key={s.src}
