@@ -177,7 +177,7 @@ export type CodeProject = {
   tagline: string;
   summary: string;
   /**
-   * Gallery screenshots in public/images/projects, shown in this order.
+   * Screenshots in public/images/projects, shown as thumbnails in this order.
    * The first one is the cover. Crop out browser chrome before adding one:
    * an n8n canvas with the address bar still in it leaks the server URL.
    */
@@ -203,19 +203,19 @@ export const codeProjects: CodeProject[] = [
     title: "AI Invoice Processing",
     tagline: "Accounts payable, end to end",
     summary:
-      "An invoice PDF arrives by email or upload, AI reads it, 12 validation checks run, and a one-click approval in Slack posts it to Xero as a bill with the PDF attached. Every invoice keeps a timeline from arrival to posted, and anything unusual is flagged in plain English. The dashboard is public: try it with a sample invoice or your own PDF.",
+      "An invoice PDF arrives by email or upload, AI reads it, 12 validation checks run, and a one-click approval in Slack posts it to Xero as a bill with the PDF attached. The dashboard, The Invoice Desk, marks up every invoice the way an accountant would with a red pen: each check leaves a plain-English note in the margin. It's public: try it with a sample invoice or your own PDF.",
     shots: [
       {
         src: "/images/projects/ai-invoice-processing.png",
-        caption: "The five steps, and a demo anyone can run",
+        caption: "One invoice, read and marked up by the checks, field by field",
       },
       {
         src: "/images/projects/ai-invoice-processing-detail.png",
-        caption: "The original PDF beside what the AI read, with a confidence score on every field",
+        caption: "A flagged invoice: the original PDF beside its 12 margin notes",
       },
       {
         src: "/images/projects/ai-invoice-processing-list.png",
-        caption: "Every invoice, its status, and the plain-English reason it was flagged",
+        caption: "The ledger: every invoice, its status, and what the checks found",
       },
       {
         src: "/images/projects/ai-invoice-processing-flow-intake.png",
@@ -243,16 +243,47 @@ export const codeProjects: CodeProject[] = [
       },
     ],
     stack: ["n8n", "OpenAI", "Supabase", "Slack", "Xero", "Next.js"],
-    // All four measured during the build (see the repo's extraction eval).
-    // No time-saved figure here: the manual baseline is an industry rule of thumb.
+    // All four measured during the build (see the repo's extraction eval and the
+    // live dashboard). No time-saved figure here: the manual baseline is an
+    // industry rule of thumb.
     facts: [
       { value: "13 / 13", label: "test invoices read perfectly, every field" },
-      { value: "12", label: "checks, each with a plain-English reason" },
+      { value: "12", label: "checks, each with a plain-English note" },
+      { value: "~15s", label: "to read and check one invoice" },
       { value: "$0.0025", label: "in AI cost per invoice" },
-      { value: "1", label: "human step: approve or reject" },
     ],
     liveUrl: "https://ai-invoice-processing-six.vercel.app",
     repoUrl: "https://github.com/boriborexequiel24-AM/ai-invoice-processing",
+  },
+  {
+    title: "Lead Warden",
+    tagline: "AI lead follow-up for home services",
+    summary:
+      "Every new lead for Copperline, a made-up Denver plumbing company, gets a reply in seconds, day or night. An AI agent reads the request and picks one next step from a fixed menu: offer visit times, book, ask a question or escalate an emergency. Rules check every message before it goes out, the owner approves any price in Slack, and quiet leads get followed up on day 1, 3 and 7, then closed on day 10. The demo is public: play the customer and chat with it.",
+    shots: [
+      {
+        src: "/images/projects/lead-warden.png",
+        caption: "The customer's side: a made-up Denver plumber that answers at 2am",
+      },
+      {
+        src: "/images/projects/lead-warden-owner.png",
+        caption: "The owner view: median time to first reply, bookings and follow-ups",
+      },
+      {
+        src: "/images/projects/lead-warden-lead.png",
+        caption: "One lead from start to close, with the reason for every decision",
+      },
+    ],
+    stack: ["n8n", "OpenAI", "Supabase", "Slack", "Gmail", "Next.js"],
+    // From the repo's agent eval (35 cases) and the live demo's owner view.
+    facts: [
+      { value: "~8s", label: "median first reply on the live demo" },
+      { value: "35 / 35", label: "test cases, right next step every time" },
+      { value: "~$0.003", label: "in AI cost per reply" },
+      { value: "Day 1·3·7", label: "follow-ups, then closed on day 10" },
+    ],
+    liveUrl: "https://leadwarden.vercel.app",
+    repoUrl: "https://github.com/boriborexequiel24-AM/ai-lead-follow-up",
   },
 ];
 
