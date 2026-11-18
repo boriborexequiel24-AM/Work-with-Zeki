@@ -56,7 +56,7 @@ export function Work() {
         })}
       </div>
 
-      <ul className="grid gap-4 md:grid-cols-2">
+      <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {visible.map((p) => (
           <li
             key={p.title}
@@ -69,11 +69,11 @@ export function Work() {
                 src={p.images[0]}
                 alt={`${p.title} workflow in ${p.platform}`}
                 fill
-                sizes="(min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 1152px) 384px, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
               />
             </div>
-            <div className="flex flex-1 flex-col p-7">
+            <div className="flex flex-1 flex-col p-6">
               <div className="flex items-center justify-between font-mono text-[11px]">
                 <span className="text-accent">{p.category}</span>
                 <span className="text-subtle">{p.platform}</span>
