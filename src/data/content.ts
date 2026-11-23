@@ -243,13 +243,15 @@ export const codeProjects: CodeProject[] = [
       },
     ],
     stack: ["n8n", "OpenAI", "Supabase", "Slack", "Xero", "Next.js"],
-    // All four measured during the build (see the repo's extraction eval and the
-    // live dashboard). No time-saved figure here: the manual baseline is an
-    // industry rule of thumb.
+    // All four measured during the build, in the repo's own extraction eval.
+    // The read time is the AI call itself: 3.4s across the eval set, 4.1s in n8n.
+    // Don't take it from the live dashboard's average, which is a rolling 500
+    // events with no time window and still has pre-fix runs in it. No time-saved
+    // figure here either: the manual baseline is an industry rule of thumb.
     facts: [
       { value: "13 / 13", label: "test invoices read perfectly, every field" },
       { value: "12", label: "checks, each with a plain-English note" },
-      { value: "~15s", label: "to read and check one invoice" },
+      { value: "~4s", label: "for the AI to read one invoice" },
       { value: "$0.0025", label: "in AI cost per invoice" },
     ],
     liveUrl: "https://ai-invoice-processing-six.vercel.app",
