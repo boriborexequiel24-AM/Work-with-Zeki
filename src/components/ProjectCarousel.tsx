@@ -57,10 +57,28 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
     dragRef.current = { active: true, moved: false, startX: e.clientX, startLeft: track.scrollLeft, startIndex: index };
   };
 
+  // `data-dragging` is written straight onto the node, so every way a drag can end has
+  // to come through here. Miss one and the track keeps snap-none and the grab cursor.
+  const endDrag = (track: HTMLDivElement, pointerId: number) => {
+    dragRef.current.active = false;
+    delete track.dataset.dragging;
+    if (track.hasPointerCapture(pointerId)) track.releasePointerCapture(pointerId);
+  };
+
   const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
     const track = trackRef.current;
     const drag = dragRef.current;
     if (!track || !drag.active) return;
+
+    // No button is down any more. The pointer left the track before it was captured and
+    // was released out there, so the pointerup never reached us. Without this the drag
+    // stays open and the next hover over the carousel scrolls it.
+    if (e.buttons === 0) {
+      endDrag(track, e.pointerId);
+      drag.moved = false;
+      return;
+    }
+
     const dx = e.clientX - drag.startX;
     if (!drag.moved && Math.abs(dx) > 6) {
       drag.moved = true;
@@ -74,10 +92,8 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
     const track = trackRef.current;
     const drag = dragRef.current;
     if (!track || !drag.active) return;
-    drag.active = false;
+    endDrag(track, e.pointerId);
     if (!drag.moved) return;
-    delete track.dataset.dragging;
-    if (track.hasPointerCapture(e.pointerId)) track.releasePointerCapture(e.pointerId);
     const dx = e.clientX - drag.startX;
     goTo(dx < -60 ? drag.startIndex + 1 : dx > 60 ? drag.startIndex - 1 : drag.startIndex);
     // `moved` stays set until the click that ends this drag has been swallowed.
@@ -181,7 +197,11 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
           >
             <Screens shots={p.shots} label={p.title} />
 
-            <div className="flex flex-col p-6 sm:p-8 lg:col-span-5">
+            <div
+              className={`flex flex-col p-6 sm:p-8 ${
+                p.shots.length ? "lg:col-span-5" : "lg:col-span-12"
+              }`}
+            >
               <p className="font-mono text-[11px] text-accent">{p.tagline}</p>
               <h3 className="mt-4 text-2xl font-medium tracking-tight text-balance">{p.title}</h3>
               <p className="mt-3 text-sm text-pretty text-muted">{p.summary}</p>
@@ -236,7 +256,10 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
 /** The left half of a slide: one large screenshot and a row of thumbnails to switch it. */
 function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string }) {
   const [active, setActive] = useState(0);
-  const shot = shots[active];
+  // `shots[active]` is typed as defined, so nothing else catches a project added with
+  // no screenshots yet. Drop the panel instead of throwing and taking the page down.
+  const shot = shots[active] ?? shots[0];
+  if (!shot) return null;
 
   return (
     <div className="flex flex-col gap-3 border-b border-line bg-bg p-4 sm:p-6 lg:col-span-7 lg:border-r lg:border-b-0">
