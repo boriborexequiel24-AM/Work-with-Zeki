@@ -10,7 +10,7 @@ This repo is the site itself. It also runs on one of my automations: every messa
 
 ## What's on the site
 
-- **14 automations**, filterable by platform (n8n, Make, Zapier, GoHighLevel)
+- **16 automations**, filterable by platform (n8n, Make, Zapier, GoHighLevel)
 - **Client experience** in insurance & public adjusting (US) and AI content production (Netherlands)
 - **Stack, certifications, and ways to work together**
 - **A working contact form** wired to n8n (details below)

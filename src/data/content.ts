@@ -55,7 +55,7 @@ export const sections = {
 };
 
 export const stats = [
-  { value: "14", label: "Automations shipped" },
+  { value: "16", label: "Automations shipped" },
   { value: "2", label: "International clients" },
   { value: "40+", label: "Tools integrated" },
   { value: "3", label: "Platform certifications" },
@@ -174,7 +174,7 @@ export type Platform = "n8n" | "Make" | "Zapier" | "GoHighLevel";
 /**
  * Systems built with Claude Code: applications I design and write, not platform
  * workflows. They have public source and a demo anyone can use, so they go in
- * their own section rather than with the client automations in `projects`.
+ * their own section. Two of them run on n8n, and `projects` shows that side of them.
  */
 export type CodeProject = {
   title: string;
@@ -438,6 +438,26 @@ export const projects: Project[] = [
     summary:
       "Calculates days since last carrier activity and routes claims into 14- and 21-day escalation reminders with webhook-driven sheet sync.",
     tools: ["n8n", "JobNimbus", "Google Sheets", "Gmail"],
+  },
+  // The n8n side of two projects in `codeProjects`. Each cover is that project's own
+  // n8n screenshots, stacked on one canvas at the same zoom.
+  {
+    title: "AI Invoice Processing",
+    images: ["/images/projects/ai-invoice-processing-n8n.png"],
+    platform: "n8n",
+    category: "AI Workflow",
+    summary:
+      "Four workflows take an invoice from Gmail or an upload to Xero: OpenAI reads the PDF, validation checks run, and a signature-checked Slack click approves it and posts the bill with its PDF attached.",
+    tools: ["n8n", "OpenAI", "Slack", "Xero"],
+  },
+  {
+    title: "Lead Warden: AI Lead Follow-Up",
+    images: ["/images/projects/lead-warden-n8n.png"],
+    platform: "n8n",
+    category: "AI Workflow",
+    summary:
+      "Six workflows answer every new lead: AI reads the message, picks one next step and replies by email, the owner approves prices in Slack, and quiet leads get a follow-up on day 1, 3 and 7.",
+    tools: ["n8n", "OpenAI", "Gmail", "Slack"],
   },
   {
     title: "AI Image Generation with Nano Banana Pro",
