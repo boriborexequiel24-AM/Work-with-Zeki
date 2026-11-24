@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState, type CSSProperties } from "react";
 import { projects, sections, type Platform } from "@/data/content";
+import { imageReady, now, withTransition } from "@/lib/transition";
 import { Section, SectionHeader, Tag } from "./ui";
 import { WorkflowViewer, type Shot } from "./WorkflowViewer";
 
@@ -14,11 +15,48 @@ const filters: ("All" | Platform)[] = [
   "GoHighLevel",
 ];
 
+// Each card keeps one name across filter changes, so the browser can move it.
+const cardName = (title: string) => `work-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+
 export function Work() {
   const [active, setActive] = useState<(typeof filters)[number]>("All");
   const [open, setOpen] = useState<Shot | null>(null);
+  const coverRef = useRef<HTMLElement | null>(null);
   const visible =
     active === "All" ? projects : projects.filter((p) => p.platform === active);
+
+  // The cover that was clicked grows into the viewer, and the viewer shrinks back into it.
+  // Both carry the same transition name, one before the change and one after.
+  async function openShot(cover: HTMLElement, shot: Shot) {
+    coverRef.current = cover;
+    if (!(await imageReady(shot.src, 400))) {
+      setOpen(shot);
+      return;
+    }
+    cover.style.viewTransitionName = "shot";
+    withTransition("viewer", async () => {
+      cover.style.viewTransitionName = "";
+      now(() => setOpen(shot));
+      const image = document.querySelector<HTMLImageElement>("dialog[open] img");
+      await Promise.race([image?.decode().catch(() => {}), new Promise((r) => setTimeout(r, 200))]);
+    });
+  }
+
+  function closeShot(dialog: HTMLDialogElement | null) {
+    const cover = coverRef.current;
+    withTransition(
+      "viewer",
+      () => {
+        // Closing it first gives focus back to the cover.
+        dialog?.close();
+        now(() => setOpen(null));
+        if (cover) cover.style.viewTransitionName = "shot";
+      },
+      () => {
+        if (cover) cover.style.viewTransitionName = "";
+      },
+    );
+  }
 
   return (
     <Section id="work">
@@ -45,7 +83,7 @@ export function Work() {
               key={f}
               role="tab"
               aria-selected={on}
-              onClick={() => setActive(f)}
+              onClick={() => withTransition("filter", () => now(() => setActive(f)))}
               className={`rounded-full border px-4 py-1.5 font-mono text-xs transition-colors ${
                 on
                   ? "border-accent/60 bg-accent/10 text-accent"
@@ -62,7 +100,9 @@ export function Work() {
         {visible.map((p) => (
           <li
             key={p.title}
-            className={`group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-line-strong ${
+            data-reveal=""
+            style={{ "--card-name": cardName(p.title) } as CSSProperties}
+            className={`work-card group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-line-strong ${
               p.featured && active === "All" ? "md:min-h-64" : ""
             }`}
           >
@@ -75,7 +115,9 @@ export function Work() {
                   <button
                     key={src}
                     type="button"
-                    onClick={() => setOpen({ src, title: p.title + part, alt })}
+                    onClick={(e) => openShot(e.currentTarget, { src, title: p.title + part, alt })}
+                    // A head start, so the picture is usually there by the click.
+                    onPointerEnter={() => void imageReady(src, 0)}
                     aria-label={`See the ${alt} at full size`}
                     className="group/shot relative flex-1 cursor-zoom-in overflow-hidden bg-bg focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
                   >
@@ -132,7 +174,7 @@ export function Work() {
         ))}
       </ul>
 
-      {open && <WorkflowViewer key={open.src} shot={open} onClose={() => setOpen(null)} />}
+      {open && <WorkflowViewer key={open.src} shot={open} onClose={closeShot} />}
     </Section>
   );
 }

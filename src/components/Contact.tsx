@@ -94,7 +94,7 @@ export function Contact() {
           </dl>
         </div>
 
-        <form onSubmit={onSubmit} className="space-y-4 rounded-2xl border border-line bg-surface p-7 sm:p-9">
+        <form onSubmit={onSubmit} data-reveal="" className="space-y-4 rounded-2xl border border-line bg-surface p-7 sm:p-9">
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="block">
               <span className="mb-1.5 block text-xs text-muted">Name</span>
@@ -123,13 +123,33 @@ export function Contact() {
           <button
             type="submit"
             disabled={sending}
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-fg px-5 py-3 text-sm font-medium text-bg transition-colors hover:bg-accent hover:text-on-accent disabled:cursor-wait disabled:opacity-60"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-fg px-5 py-3 text-sm font-medium text-bg press hover:bg-accent hover:text-on-accent disabled:cursor-wait disabled:opacity-60"
           >
             {sending ? "Sending…" : <>Send message <Arrow /></>}
           </button>
           <p role="status" aria-live="polite" className="min-h-4 text-center text-xs">
             {status.state === "sent" && (
-              <span className="text-accent">Thanks, your message is in. I&apos;ll get back to you within a day.</span>
+              <span className="text-accent">
+                <svg
+                  className="mr-1.5 inline-block align-[-2px]"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    className="draw-check"
+                    pathLength={1}
+                    d="M3 8.5l3.5 3.5L13 4.5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                Thanks, your message is in. I&apos;ll get back to you within a day.
+              </span>
             )}
             {status.state === "error" && (
               <span className="text-danger">

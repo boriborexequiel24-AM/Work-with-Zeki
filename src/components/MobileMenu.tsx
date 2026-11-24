@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { nav } from "@/data/content";
+import { useActiveSection } from "@/lib/useActiveSection";
 
 // The section links for phones, where the row in Nav doesn't fit.
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const active = useActiveSection();
   const rootRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -36,7 +38,7 @@ export function MobileMenu() {
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-label={open ? "Close menu" : "Open menu"}
-        className="grid size-9 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-line-strong hover:text-fg"
+        className="grid size-9 place-items-center rounded-lg border border-line text-muted press hover:border-line-strong hover:text-fg"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path
@@ -52,14 +54,15 @@ export function MobileMenu() {
         id="mobile-menu"
         aria-label="Primary"
         hidden={!open}
-        className="absolute inset-x-0 top-full border-b border-line bg-bg px-5 py-2"
+        className="animate-menu-in absolute inset-x-0 top-full border-b border-line bg-bg px-5 py-2"
       >
         {nav.map((item) => (
           <a
             key={item.href}
             href={item.href}
             onClick={() => setOpen(false)}
-            className="block border-b border-line py-3.5 text-base text-muted transition-colors last:border-b-0 hover:text-fg"
+            aria-current={active === item.href ? "location" : undefined}
+            className="block border-b border-line py-3.5 text-base text-muted transition-colors last:border-b-0 hover:text-fg aria-[current]:text-accent"
           >
             {item.label}
           </a>

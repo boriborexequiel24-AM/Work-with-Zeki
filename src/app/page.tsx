@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Hiring } from "@/components/Hiring";
 import { Nav } from "@/components/Nav";
+import { Reveal } from "@/components/Reveal";
 import { Tools } from "@/components/Tools";
 import { Work } from "@/components/Work";
 
@@ -22,6 +23,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <Reveal />
     </>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 export type Shot = { src: string; title: string; alt: string };
 
@@ -11,31 +11,38 @@ export type Shot = { src: string; title: string; alt: string };
  * switches to the whole picture and back.
  *
  * It is a native modal <dialog>, so Escape closes it, focus stays inside, and focus goes
- * back to the card that opened it.
+ * back to the card that opened it. The parent does the closing, because it animates it.
  */
-export function WorkflowViewer({ shot, onClose }: { shot: Shot; onClose: () => void }) {
+export function WorkflowViewer({
+  shot,
+  onClose,
+}: {
+  shot: Shot;
+  onClose: (dialog: HTMLDialogElement | null) => void;
+}) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [fit, setFit] = useState(false);
 
-  useEffect(() => {
+  // A layout effect, so it is open by the time a transition captures the page.
+  useLayoutEffect(() => {
     const dialog = dialogRef.current;
     if (dialog && !dialog.open) dialog.showModal();
   }, []);
 
-  // close() gives focus back, but its close event comes later. Waiting for that event would
-  // lose a click that opens the next screenshot in between. Escape still arrives as one.
-  const close = () => {
-    dialogRef.current?.close();
-    onClose();
-  };
+  const close = () => onClose(dialogRef.current);
 
   const button =
-    "inline-flex h-9 items-center justify-center rounded-lg border border-line-strong px-3 text-xs text-fg transition-colors hover:bg-fg hover:text-bg";
+    "inline-flex h-9 items-center justify-center rounded-lg border border-line-strong px-3 text-xs text-fg press hover:bg-fg hover:text-bg";
 
   return (
     <dialog
       ref={dialogRef}
-      onClose={onClose}
+      onCancel={(e) => {
+        e.preventDefault();
+        close();
+      }}
+      // The browser can still close it by itself, on a second Escape.
+      onClose={close}
       aria-label={shot.alt}
       className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none bg-bg text-fg"
     >
@@ -60,7 +67,7 @@ export function WorkflowViewer({ shot, onClose }: { shot: Shot; onClose: () => v
           role="group"
           aria-label="Screenshot, scroll to see all of it"
           onClick={(e) => e.target === e.currentTarget && close()}
-          className="flex min-h-0 flex-1 overflow-auto overscroll-contain"
+          className="viewer-stage flex min-h-0 flex-1 overflow-auto overscroll-contain"
         >
           <Image
             src={shot.src}

@@ -47,6 +47,10 @@
   color-scheme: dark;
 }
 
+:root {
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1); /* fast start, soft landing */
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -123,9 +127,95 @@ html:has(dialog[open]) {
   .marquee:hover .marquee-track { animation-play-state: paused; }
 }
 
+/* ── Motion ────────────────────────────────────────────────────── */
+
+/* Buttons give a little under a press, arrows lean the way they point */
+.press {
+  transition: color 150ms, background-color 150ms, border-color 150ms, opacity 150ms, scale 120ms var(--motion-ease);
+}
+.press:active:not(:disabled) { scale: 0.97; }
+
+.arrow { transition: translate 200ms var(--motion-ease); }
+@media (hover: hover) {
+  :is(a, button):hover > .arrow { translate: 3px 0; }
+}
+
+/* The menu link of the section you are in */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -6px;
+  height: 1px;
+  background: var(--accent);
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale 250ms var(--motion-ease);
+}
+.nav-link[aria-current]::after { scale: 1 1; }
+
+@keyframes menu-in {
+  from { opacity: 0; translate: 0 -8px; }
+}
+.animate-menu-in { animation: menu-in 200ms var(--motion-ease); }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+.animate-fade-in { animation: fade-in 200ms ease-out; }
+
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+}
+.draw-check {
+  stroke-dasharray: 1;
+  animation: draw 350ms 80ms var(--motion-ease) backwards;
+}
+
+/* Rise in once, see components/Reveal.tsx */
+[data-reveal="wait"] { opacity: 0; translate: 0 12px; }
+[data-reveal="in"] {
+  transition: opacity 450ms var(--motion-ease), translate 450ms var(--motion-ease);
+}
+@media print {
+  [data-reveal] { opacity: 1 !important; translate: none !important; }
+}
+
+/* View transitions, see lib/transition.ts. Parts are named only while the change that
+   needs them runs: a named card would otherwise float above the open viewer. */
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 250ms;
+  animation-timing-function: var(--motion-ease);
+}
+
+/* Work filter: cards move, the rest of the page doesn't blink */
+[data-transition="filter"] .work-card { view-transition-name: var(--card-name); }
+[data-transition="filter"] .site-nav { view-transition-name: site-nav; }
+[data-transition="filter"]::view-transition-old(root),
+[data-transition="filter"]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Workflow viewer: the cover and the stage share one name */
+[data-transition="viewer"] .viewer-stage { view-transition-name: shot; }
+::view-transition-group(shot) { animation-duration: 300ms; }
+::view-transition-image-pair(shot) { overflow: clip; }
+::view-transition-old(shot),
+::view-transition-new(shot) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .animate-blink { animation: none; }
+  .animate-menu-in, .animate-fade-in, .draw-check { animation: none; }
+  .press, .arrow, .nav-link::after { transition: none; }
+  .press:active:not(:disabled) { scale: none; }
+  :is(a, button):hover > .arrow { translate: none; }
   .marquee { mask-image: none; }
   .marquee-track { animation: none; }
 }

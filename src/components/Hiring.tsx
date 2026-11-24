@@ -13,7 +13,7 @@ export function Hiring() {
       />
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {engagement.openTo.map((o) => (
-          <li key={o.name} className="flex flex-col rounded-2xl border border-line bg-surface p-7">
+          <li key={o.name} data-reveal="" className="flex flex-col rounded-2xl border border-line bg-surface p-7">
             <h3 className="font-mono text-xs tracking-widest text-muted uppercase">{o.kind}</h3>
             <p className="mt-4 text-xl font-semibold tracking-tight text-balance">{o.name}</p>
             <p className="mt-3 text-sm text-muted">{o.blurb}</p>
@@ -29,7 +29,7 @@ export function Hiring() {
         ))}
       </ul>
 
-      <div className="mt-4 rounded-2xl border border-accent bg-surface p-7 sm:p-9">
+      <div data-reveal="" className="mt-4 rounded-2xl border border-accent bg-surface p-7 sm:p-9">
         <div className="flex flex-col gap-7 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-xl">
             <h3 className="text-xl font-semibold tracking-tight text-balance">{engagement.intro.title}</h3>
@@ -37,7 +37,7 @@ export function Hiring() {
           </div>
           <a
             href="#contact"
-            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-medium text-on-accent transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-medium text-on-accent press hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             {engagement.intro.cta}
             <Arrow />

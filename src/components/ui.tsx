@@ -35,7 +35,7 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <header className={`max-w-2xl ${className}`}>
+    <header data-reveal="" className={`max-w-2xl ${className}`}>
       <p className="mb-4 font-mono text-xs tracking-widest text-accent uppercase">
         <span className="text-subtle">{index} /</span> {eyebrow}
       </p>
@@ -65,7 +65,7 @@ export function ButtonLink({
   external?: boolean;
 }) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+    "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium press focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
   const styles =
     variant === "primary"
       ? "bg-fg text-bg hover:bg-accent hover:text-on-accent"
@@ -83,7 +83,7 @@ export function ButtonLink({
 
 export function Arrow() {
   return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg className="arrow" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );

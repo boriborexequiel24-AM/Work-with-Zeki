@@ -128,7 +128,7 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
   const many = projects.length > 1;
 
   return (
-    <div>
+    <div data-reveal="">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
         <div
           ref={tabsRef}
@@ -281,10 +281,18 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
 /** The left half of a slide: one large screenshot and a row of thumbnails to switch it. */
 function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string }) {
   const [active, setActive] = useState(0);
+  // The picture on show and the one before it, which stays underneath while it fades in.
+  const [layers, setLayers] = useState([{ id: 0, index: 0 }]);
   // `shots[active]` is typed as defined, so nothing else catches a project added with
   // no screenshots yet. Drop the panel instead of throwing and taking the page down.
   const shot = shots[active] ?? shots[0];
   if (!shot) return null;
+
+  const pick = (i: number) => {
+    if (i === active) return;
+    setActive(i);
+    setLayers((l) => [...l.slice(-1), { id: l[l.length - 1].id + 1, index: i }]);
+  };
 
   return (
     <div className="flex flex-col gap-3 border-b border-line bg-bg p-4 sm:p-6 lg:col-span-7 lg:border-r lg:border-b-0">
@@ -293,16 +301,12 @@ function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string 
           shot.fit === "contain" ? "bg-canvas" : "bg-bg"
         }`}
       >
-        <Image
-          src={shot.src}
-          alt={shot.caption}
-          fill
-          draggable={false}
-          sizes="(min-width: 1152px) 640px, (min-width: 1024px) 55vw, 100vw"
-          className={
-            shot.fit === "contain" ? "object-contain object-center" : "object-cover object-left-top"
-          }
-        />
+        {layers.map((layer, i) => {
+          const picture = shots[layer.index] ?? shot;
+          return (
+            <Layer key={layer.id} shot={picture} fade={layer.id > 0} current={i === layers.length - 1} />
+          );
+        })}
       </div>
 
       <p className="min-h-8 font-mono text-[11px] text-pretty text-subtle" aria-live="polite">
@@ -319,7 +323,7 @@ function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string 
             <button
               key={s.src}
               type="button"
-              onClick={() => setActive(i)}
+              onClick={() => pick(i)}
               aria-pressed={i === active}
               aria-label={`${label}: ${s.caption}`}
               className={`relative aspect-[16/10] overflow-hidden rounded-md border transition ${
@@ -346,6 +350,39 @@ function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string 
   );
 }
 
+/** One screenshot. It stays invisible until its picture has loaded, then fades in. */
+function Layer({
+  shot,
+  fade,
+  current,
+}: {
+  shot: CodeProject["shots"][number];
+  fade: boolean;
+  current: boolean;
+}) {
+  const [ready, setReady] = useState(!fade);
+  const contain = shot.fit === "contain";
+
+  return (
+    <div
+      aria-hidden={!current}
+      className={`absolute inset-0 ${contain ? "bg-canvas" : "bg-bg"} ${
+        !ready ? "opacity-0" : fade ? "animate-fade-in" : ""
+      }`}
+    >
+      <Image
+        src={shot.src}
+        alt={current ? shot.caption : ""}
+        fill
+        draggable={false}
+        onLoad={() => setReady(true)}
+        sizes="(min-width: 1152px) 640px, (min-width: 1024px) 55vw, 100vw"
+        className={contain ? "object-contain object-center" : "object-cover object-left-top"}
+      />
+    </div>
+  );
+}
+
 function StepButton({
   dir,
   disabled,
@@ -362,7 +399,7 @@ function StepButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={prev ? "Previous project" : "Next project"}
-      className="grid size-9 place-items-center rounded-full border border-line-strong bg-surface text-fg transition-colors enabled:hover:bg-fg enabled:hover:text-bg disabled:opacity-35"
+      className="grid size-9 place-items-center rounded-full border border-line-strong bg-surface text-fg press enabled:hover:bg-fg enabled:hover:text-bg disabled:opacity-35"
     >
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path

@@ -42,7 +42,7 @@ export function Tools() {
             type="button"
             onClick={() => setPaused((p) => !p)}
             aria-label={paused ? "Play the tools carousel" : "Pause the tools carousel"}
-            className="grid size-9 place-items-center rounded-full border border-line-strong text-fg transition-colors hover:bg-fg hover:text-bg motion-reduce:hidden"
+            className="grid size-9 place-items-center rounded-full border border-line-strong text-fg press hover:bg-fg hover:text-bg motion-reduce:hidden"
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               <path d={paused ? "M4 2.5v11l9-5.5z" : "M4 3h3v10H4zM9 3h3v10H9z"} />

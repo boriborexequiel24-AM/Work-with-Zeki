@@ -9,7 +9,7 @@ export function Experience() {
 
       <ol className="space-y-6">
         {experience.map((e) => (
-          <li key={e.role} className="grid gap-6 rounded-2xl border border-line bg-surface p-7 sm:p-9 lg:grid-cols-[240px_1fr]">
+          <li key={e.role} data-reveal="" className="grid gap-6 rounded-2xl border border-line bg-surface p-7 sm:p-9 lg:grid-cols-[240px_1fr]">
             <div className="font-mono text-xs text-subtle">
               <p className="text-muted">{e.period}</p>
               <p className="mt-1">{e.location}</p>
@@ -52,7 +52,7 @@ export function Experience() {
         <h3 className="mb-6 font-mono text-xs tracking-widest text-subtle uppercase">Certifications</h3>
         <ul className="grid gap-4 sm:grid-cols-3">
           {certifications.map((c) => (
-            <li key={c.title} className="overflow-hidden rounded-xl border border-line bg-surface">
+            <li key={c.title} data-reveal="" className="overflow-hidden rounded-xl border border-line bg-surface">
               <a href={c.image} target="_blank" rel="noopener noreferrer" className="group block">
                 <div className="relative aspect-[3/2] overflow-hidden border-b border-line">
                   <Image
