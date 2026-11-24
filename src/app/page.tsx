@@ -5,7 +5,6 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Hiring } from "@/components/Hiring";
 import { Nav } from "@/components/Nav";
-import { Services } from "@/components/Services";
 import { Tools } from "@/components/Tools";
 import { Work } from "@/components/Work";
 
@@ -16,7 +15,6 @@ export default function Home() {
       <main>
         <Hero />
         <AiApps />
-        <Services />
         <Tools />
         <Work />
         <Experience />

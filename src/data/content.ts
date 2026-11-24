@@ -15,6 +15,45 @@ export const profile = {
   logo: "/images/logo.png",
 };
 
+// Each section's heading, in page order.
+export const sections = {
+  hero: { before: "I build automations that", accent: "run the business", after: "for you." },
+  aiApps: {
+    eyebrow: "Built with Claude Code",
+    title: "AI apps and agents, shipped as working software.",
+    intro:
+      "These are applications, not platform workflows. I design and write them with Claude Code, the source is public, and the demos are live for anyone to try.",
+  },
+  tools: {
+    eyebrow: "Stack",
+    title: "The tools I wire together.",
+    intro: "Platform-agnostic: I pick the right tool for the job, then connect it to everything else.",
+    workLink: "See workflows",
+    experienceLink: "See experience",
+  },
+  work: {
+    eyebrow: "Selected work",
+    // Some covers show a workflow that is switched off, so don't say they all run in production.
+    title: "Automations I've designed and built.",
+    // The number of projects goes in front.
+    intro: "workflows. Here's what each one does and the stack behind it.",
+  },
+  experience: { eyebrow: "Experience", title: "Where I've done the work." },
+  hiring: {
+    eyebrow: "Hiring",
+    title: "Let's start with a conversation.",
+    intro:
+      "I'm open to a role on a team and to contract work. The fastest way to find out if I'm a fit is twenty minutes talking about the actual process.",
+  },
+  contact: {
+    eyebrow: "Contact",
+    title: "Have a process that eats your team's time?",
+    titleAccent: "Let's automate it.",
+    intro:
+      "I'm open to a role on a team and to contract work. Tell me about the role, or about the process you want fixed, and I'll reply within a day.",
+  },
+};
+
 export const stats = [
   { value: "14", label: "Automations shipped" },
   { value: "2", label: "International clients" },
@@ -50,40 +89,6 @@ export const industryStats = [
     label: "a week workers believe they'd save with better processes.",
     source: "Asana Anatomy of Work, 2023",
     url: "https://investors.asana.com/news-releases/news-release-details/asana-anatomy-work-global-index-2023-smart-collaboration-and",
-  },
-];
-
-export const services = [
-  {
-    title: "Enterprise Workflow Automation",
-    body: "Designing and deploying multi-step automations that orchestrate business processes across platforms.",
-  },
-  {
-    title: "AI & LLM Integration",
-    body: "Embedding OpenAI, Claude, and Gemini into real operations: classification, extraction, and generation with guardrails.",
-  },
-  {
-    title: "CRM Integration & Data",
-    body: "Keeping CRMs, spreadsheets, and inboxes in sync so data flows to the right place without manual entry.",
-  },
-  {
-    title: "API & Systems Integration",
-    body: "Connecting external services through REST APIs and webhooks when off-the-shelf connectors fall short.",
-  },
-];
-
-export const differentiators = [
-  {
-    title: "Enterprise Automation",
-    body: "Complex workflow orchestration across multiple platforms and systems.",
-  },
-  {
-    title: "Advanced AI Integration",
-    body: "Custom AI solutions tailored to specific business needs, not generic chatbots.",
-  },
-  {
-    title: "Strategic AI Adoption",
-    body: "Consulting and implementation that scales with the business.",
   },
 ];
 
@@ -569,7 +574,6 @@ export const engagement = {
 
 export const nav = [
   { label: "AI Apps", href: "#ai-apps" },
-  { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
   { label: "Hiring", href: "#hiring" },

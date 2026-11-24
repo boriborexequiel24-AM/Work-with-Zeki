@@ -1,13 +1,13 @@
 // Contact form → n8n webhook.
 // The webhook URL and secret stay server-side (see .env.example).
 
-type Payload = { name: string; email: string; message: string; company?: string };
+type Payload = { name: string; email: string; message: string; trap: string };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function validate(body: unknown): Payload | string {
   if (!body || typeof body !== "object") return "Invalid request.";
-  const { name, email, message, company } = body as Record<string, unknown>;
+  const { name, email, message, hp_check } = body as Record<string, unknown>;
   if (typeof name !== "string" || !name.trim() || name.length > 100) return "Please enter your name.";
   if (typeof email !== "string" || !EMAIL_RE.test(email) || email.length > 200)
     return "Please enter a valid email.";
@@ -17,8 +17,28 @@ function validate(body: unknown): Payload | string {
     name: name.trim(),
     email: email.trim(),
     message: message.trim(),
-    company: typeof company === "string" ? company : "",
+    trap: typeof hp_check === "string" ? hp_check : "",
   };
+}
+
+// At most 5 messages per visitor in 10 minutes. The counts live in this server instance's
+// memory, so it slows a flood down rather than stopping one that spreads over many
+// addresses or instances. A Vercel Firewall rule on this path would be the hard limit.
+const LIMIT = 5;
+const WINDOW_MS = 10 * 60_000;
+const recent = new Map<string, number[]>();
+
+function tooMany(ip: string): boolean {
+  const now = Date.now();
+  for (const [key, times] of recent) {
+    const live = times.filter((t) => now - t < WINDOW_MS);
+    if (live.length) recent.set(key, live);
+    else recent.delete(key);
+  }
+  const times = recent.get(ip) ?? [];
+  if (times.length >= LIMIT) return true;
+  recent.set(ip, [...times, now]);
+  return false;
 }
 
 export async function POST(request: Request) {
@@ -34,8 +54,20 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: result }, { status: 400 });
   }
 
-  // Honeypot: real visitors never fill the hidden "company" field.
-  if (result.company) return Response.json({ ok: true });
+  // Honeypot: real visitors never see the hidden "hp_check" field. Logged without the
+  // message, so a wrongly dropped one can at least be noticed.
+  if (result.trap) {
+    console.warn("[contact] dropped: honeypot filled in");
+    return Response.json({ ok: true });
+  }
+
+  // Vercel sets x-real-ip itself, so a visitor can't fake it.
+  if (tooMany(request.headers.get("x-real-ip") ?? "unknown")) {
+    return Response.json(
+      { ok: false, error: "That's a lot of messages. Please try again in a few minutes." },
+      { status: 429 },
+    );
+  }
 
   const url = process.env.N8N_CONTACT_WEBHOOK_URL;
   if (!url) {

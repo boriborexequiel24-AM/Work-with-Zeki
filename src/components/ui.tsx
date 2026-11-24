@@ -25,14 +25,17 @@ export function SectionHeader({
   eyebrow,
   title,
   intro,
+  className = "mb-14",
 }: {
   index: string;
   eyebrow: string;
   title: ReactNode;
   intro?: string;
+  /** Replaces the space below the header. */
+  className?: string;
 }) {
   return (
-    <header className="mb-14 max-w-2xl">
+    <header className={`max-w-2xl ${className}`}>
       <p className="mb-4 font-mono text-xs tracking-widest text-accent uppercase">
         <span className="text-subtle">{index} /</span> {eyebrow}
       </p>

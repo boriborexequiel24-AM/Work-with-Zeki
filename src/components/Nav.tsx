@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { nav, profile } from "@/data/content";
+import { MobileMenu } from "./MobileMenu";
 import { ThemeToggle } from "./ThemeToggle";
 import { Container } from "./ui";
 
@@ -28,6 +29,7 @@ export function Nav() {
           >
             Hire me
           </a>
+          <MobileMenu />
         </div>
       </Container>
     </div>

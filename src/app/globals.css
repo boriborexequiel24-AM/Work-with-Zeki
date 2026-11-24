@@ -15,7 +15,7 @@
   --line-strong: rgb(15 23 42 / 0.16);
   --fg: #0c0d0f;
   --muted: #55595f;
-  --subtle: #8b8f96;
+  --subtle: #6a6e75;
   --accent: #0f766e; /* teal-700, readable on white */
   --accent-soft: rgb(15 118 110 / 0.08);
   --on-accent: #ffffff;
@@ -39,7 +39,7 @@
   --line-strong: rgb(255 255 255 / 0.13);
   --fg: #e8e8ea;
   --muted: #9a9ca3;
-  --subtle: #63666d;
+  --subtle: #85888f;
   --accent: #5eead4; /* teal-300 */
   --accent-soft: rgb(94 234 212 / 0.08);
   --on-accent: #0c0d0f;
@@ -94,7 +94,27 @@ body {
   animation: blink 2.4s ease-in-out infinite;
 }
 
+/* Tools carousel: each row is two equal copies that both slide by one copy's width */
+@keyframes marquee {
+  to { transform: translateX(-100%); }
+}
+
+.marquee-track {
+  animation: marquee 70s linear infinite;
+}
+.marquee-track[data-reverse="true"] {
+  animation-direction: reverse;
+}
+.marquee[data-paused="true"] .marquee-track {
+  animation-play-state: paused;
+}
+/* Only with a real pointer: a tap would leave a touch screen stuck on hover. */
+@media (hover: hover) {
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .animate-blink { animation: none; }
+  .marquee-track { animation: none; }
 }

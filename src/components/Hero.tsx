@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { profile, stats } from "@/data/content";
+import { profile, sections, stats } from "@/data/content";
 import { Arrow, ButtonLink, Container } from "./ui";
 
 function Portrait() {
@@ -38,7 +38,8 @@ export function Hero() {
             <span className="text-subtle">{"//"}</span> {profile.availability.toLowerCase()}
           </p>
           <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-            I build automations that <span className="text-accent">run the business</span> for you.
+            {sections.hero.before} <span className="text-accent">{sections.hero.accent}</span>{" "}
+            {sections.hero.after}
           </h1>
           <p className="mt-6 max-w-xl text-lg text-pretty text-muted">{profile.tagline}</p>
           <div className="mt-9 flex flex-wrap gap-3">

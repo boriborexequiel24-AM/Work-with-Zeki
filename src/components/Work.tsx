@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { projects, type Platform } from "@/data/content";
+import { projects, sections, type Platform } from "@/data/content";
 import { Section, SectionHeader, Tag } from "./ui";
 
 const filters: ("All" | Platform)[] = [
@@ -21,10 +21,10 @@ export function Work() {
   return (
     <Section id="work">
       <SectionHeader
-        index="04"
-        eyebrow="Selected work"
-        title="Real systems, running in production."
-        intro={`${projects.length} automations built for real clients and operations. Here's what each one does and the stack behind it.`}
+        index="03"
+        eyebrow={sections.work.eyebrow}
+        title={sections.work.title}
+        intro={`${projects.length} ${sections.work.intro}`}
       />
 
       <div
@@ -64,14 +64,19 @@ export function Work() {
               p.featured && active === "All" ? "md:min-h-64" : ""
             }`}
           >
-            <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-bg">
-              <Image
-                src={p.images[0]}
-                alt={`${p.title} workflow in ${p.platform}`}
-                fill
-                sizes="(min-width: 1152px) 384px, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-              />
+            {/* A workflow in two parts shows both, side by side. */}
+            <div className="flex aspect-[16/9] gap-px overflow-hidden border-b border-line bg-line">
+              {p.images.map((src, i) => (
+                <div key={src} className="relative flex-1 overflow-hidden bg-bg">
+                  <Image
+                    src={src}
+                    alt={`${p.title} workflow in ${p.platform}${p.images.length > 1 ? `, part ${i + 1}` : ""}`}
+                    fill
+                    sizes="(min-width: 1152px) 384px, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+              ))}
             </div>
             <div className="flex flex-1 flex-col p-6">
               <div className="flex items-center justify-between font-mono text-[11px]">

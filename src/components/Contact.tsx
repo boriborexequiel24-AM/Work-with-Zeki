@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { profile } from "@/data/content";
+import { profile, sections } from "@/data/content";
 import { Arrow, Section, SectionHeader } from "./ui";
 
 type Status = { state: "idle" | "sending" | "sent" } | { state: "error"; message: string };
@@ -23,33 +23,38 @@ export function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(Object.fromEntries(new FormData(form))),
       });
-      const data = (await res.json()) as { ok: boolean; error?: string };
-      if (!res.ok || !data.ok) throw new Error(data.error ?? "Something went wrong.");
+      // An error page from the host isn't JSON. Only our own API's text is shown to visitors.
+      const data = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+      if (!res.ok || !data?.ok) {
+        setStatus({ state: "error", message: data?.error ?? "Couldn't send right now." });
+        return;
+      }
       form.reset();
       setStatus({ state: "sent" });
-    } catch (err) {
-      setStatus({ state: "error", message: err instanceof Error ? err.message : "Something went wrong." });
+    } catch {
+      setStatus({ state: "error", message: "Couldn't reach the server. Check your connection and try again." });
     }
   }
 
   const sending = status.state === "sending";
 
+  // 16px text on phones: iOS zooms the page in on anything smaller.
   const field =
-    "w-full rounded-lg border border-line bg-bg px-4 py-3 text-sm placeholder:text-subtle focus:border-accent/60 focus:outline-none";
+    "w-full rounded-lg border border-line bg-bg px-4 py-3 text-base sm:text-sm placeholder:text-subtle focus:border-accent/60 focus:outline-none";
 
   return (
     <Section id="contact" className="border-t border-line">
       <div className="grid gap-14 lg:grid-cols-2">
         <div>
           <SectionHeader
-            index="07"
-            eyebrow="Contact"
+            index="06"
+            eyebrow={sections.contact.eyebrow}
             title={
               <>
-                Have a process that eats your team&apos;s time? <span className="text-accent">Let&apos;s automate it.</span>
+                {sections.contact.title} <span className="text-accent">{sections.contact.titleAccent}</span>
               </>
             }
-            intro="I'm open to a role on a team and to contract work. Tell me about the role, or about the process you want fixed, and I'll reply within a day."
+            intro={sections.contact.intro}
           />
           <dl className="space-y-5">
             <div>
@@ -104,8 +109,17 @@ export function Contact() {
             <span className="mb-1.5 block text-xs text-muted">What do you want to automate?</span>
             <textarea name="message" required rows={6} className={`${field} resize-none`} placeholder="We spend hours every week copying leads from email into our CRM…" />
           </label>
-          {/* Honeypot: hidden from people, filled by bots */}
-          <input name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+          {/* Honeypot: hidden from people, filled by bots. The name must mean nothing to
+              autofill, or a real visitor's browser fills it in and their message is dropped. */}
+          <input
+            name="hp_check"
+            tabIndex={-1}
+            autoComplete="off"
+            data-1p-ignore
+            data-lpignore="true"
+            aria-hidden="true"
+            className="hidden"
+          />
           <button
             type="submit"
             disabled={sending}

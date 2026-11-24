@@ -1,4 +1,4 @@
-import { engagement } from "@/data/content";
+import { engagement, sections } from "@/data/content";
 import { Arrow, Section, SectionHeader } from "./ui";
 
 // Replaces the old pricing table. Zeki is open to a role and to contract work,
@@ -8,10 +8,8 @@ export function Hiring() {
   return (
     <Section id="hiring" className="border-t border-line">
       <SectionHeader
-        index="06"
-        eyebrow="Hiring"
-        title="Let's start with a conversation."
-        intro="I'm open to a role on a team and to contract work. The fastest way to find out if I'm a fit is twenty minutes talking about the actual process."
+        index="05"
+        {...sections.hiring}
       />
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {engagement.openTo.map((o) => (

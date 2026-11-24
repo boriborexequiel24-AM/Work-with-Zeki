@@ -32,7 +32,7 @@ All of its existing content (bio, experience, 14 projects, certs, pricing, conta
 
 ## Structure
 - `src/app/`: single-page site (`page.tsx`), layout and metadata, and `globals.css` with the design tokens
-- `src/components/`: one component per section (Hero, Services, Tools, Work, Experience, Pricing, Contact), plus shared pieces in `ui.tsx`
+- `src/components/`: one component per section (Hero, AiApps, Tools, Work, Experience, Hiring, Contact), plus shared pieces in `ui.tsx`
 - `src/data/content.ts`: **all site copy lives here.** Edit content in this file, not in the components.
 
 ## Design

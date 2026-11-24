@@ -1,4 +1,4 @@
-import { codeProjects } from "@/data/content";
+import { codeProjects, sections } from "@/data/content";
 import { ProjectCarousel } from "./ProjectCarousel";
 import { Section, SectionHeader } from "./ui";
 
@@ -13,9 +13,7 @@ export function AiApps() {
       <Section id="ai-apps">
         <SectionHeader
           index="01"
-          eyebrow="Built with Claude Code"
-          title="AI apps and agents, shipped as working software."
-          intro="These are applications, not platform workflows. I design and write them with Claude Code, the source is public, and the demos are live for anyone to try."
+          {...sections.aiApps}
         />
 
         <ProjectCarousel projects={codeProjects} />

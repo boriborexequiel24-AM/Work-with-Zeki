@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { certifications, experience } from "@/data/content";
+import { certifications, experience, sections } from "@/data/content";
 import { Section, SectionHeader, Tag } from "./ui";
 
 export function Experience() {
   return (
     <Section id="experience" className="border-t border-line">
-      <SectionHeader index="05" eyebrow="Experience" title="Where I've done the work." />
+      <SectionHeader index="04" {...sections.experience} />
 
       <ol className="space-y-6">
         {experience.map((e) => (

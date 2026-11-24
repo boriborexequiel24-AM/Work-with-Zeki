@@ -24,6 +24,16 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
   const dragRef = useRef({ active: false, moved: false, startX: 0, startLeft: 0, startIndex: 0 });
   const [index, setIndex] = useState(0);
 
+  // Scrolling is over: take the active project from where the track really is. A swipe may
+  // have interrupted the animation and landed somewhere else.
+  const settle = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    animatingRef.current = false;
+    const track = trackRef.current;
+    if (!track || dragRef.current.moved || track.clientWidth === 0) return;
+    setIndex(Math.round(track.scrollLeft / track.clientWidth));
+  }, []);
+
   const goTo = useCallback(
     (i: number) => {
       const track = trackRef.current;
@@ -33,14 +43,14 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
 
       animatingRef.current = true;
       if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => {
-        animatingRef.current = false;
-      }, 600);
+      // scrollend normally settles it. This is for browsers without that event, and for
+      // when there is nothing to scroll.
+      timerRef.current = setTimeout(settle, 1200);
 
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       track.scrollTo({ left: next * track.clientWidth, behavior: reduce ? "auto" : "smooth" });
     },
-    [projects.length],
+    [projects.length, settle],
   );
 
   // On a phone the tabs don't all fit, so the row scrolls to keep the active one in view.
@@ -175,6 +185,7 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
         aria-roledescription="carousel"
         aria-label="Projects built with Claude Code"
         onScroll={onScroll}
+        onScrollEnd={settle}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
