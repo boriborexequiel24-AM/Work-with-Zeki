@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useRef, useState, type CSSProperties, type PointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import type { CodeProject } from "@/data/content";
 import { Arrow, Tag } from "./ui";
 
@@ -18,6 +18,7 @@ import { Arrow, Tag } from "./ui";
  */
 export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
   const animatingRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const dragRef = useRef({ active: false, moved: false, startX: 0, startLeft: 0, startIndex: 0 });
@@ -41,6 +42,18 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
     },
     [projects.length],
   );
+
+  // On a phone the tabs don't all fit, so the row scrolls to keep the active one in view.
+  // Only the row moves: scrollIntoView could scroll the page too.
+  useEffect(() => {
+    const row = tabsRef.current;
+    const tab = row?.children[index];
+    if (!row || !tab) return;
+    const r = row.getBoundingClientRect();
+    const t = tab.getBoundingClientRect();
+    if (t.left < r.left) row.scrollLeft -= r.left - t.left;
+    else if (t.right > r.right) row.scrollLeft += t.right - r.right;
+  }, [index]);
 
   const onScroll = useCallback(() => {
     const track = trackRef.current;
@@ -108,6 +121,7 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
     <div>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
         <div
+          ref={tabsRef}
           role="tablist"
           aria-label="Projects"
           className="flex min-w-0 gap-1.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"

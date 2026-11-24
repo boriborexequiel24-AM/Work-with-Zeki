@@ -1,4 +1,4 @@
-import { Agentic } from "@/components/Agentic";
+import { AiApps } from "@/components/AiApps";
 import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
 import { Footer } from "@/components/Footer";
@@ -15,7 +15,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Agentic />
+        <AiApps />
         <Services />
         <Tools />
         <Work />

@@ -23,7 +23,7 @@ export const stats = [
 ];
 
 // Published industry research, not results from my own clients.
-// Not rendered right now: the "Why automate?" band was replaced by the Agentic
+// Not rendered right now: the "Why automate?" band was replaced by the AI apps
 // section. Kept because every entry is sourced and hard to reassemble.
 // Every entry must link to its source. Don't add a stat without one.
 export const industryStats = [
@@ -322,6 +322,46 @@ export const codeProjects: CodeProject[] = [
     liveUrl: "https://leadwarden.vercel.app",
     repoUrl: "https://github.com/boriborexequiel24-AM/ai-lead-follow-up",
   },
+  {
+    title: "Kestrel Studio CRM",
+    tagline: "A full CRM for a marketing agency",
+    summary:
+      "The CRM of Kestrel Studio, a made-up 12-person marketing agency. It follows the work from a first conversation to a signed retainer and its renewal. AI sums up a company's history, drafts the next follow-up, and answers questions about the pipeline through read-only lookups, with links to the records. Nothing is really sent. The demo is public, with no sign-up: play Maya, the Account Director, and change anything in your own private copy.",
+    shots: [
+      {
+        src: "/images/projects/kestrel-crm.png",
+        caption: "The pipeline: open deals by owner and stage, with totals and overdue next steps",
+      },
+      {
+        src: "/images/projects/kestrel-crm-home.png",
+        caption: "Home: what needs Maya today, and the retainers about to end",
+      },
+      {
+        src: "/images/projects/kestrel-crm-deal.png",
+        caption: "A deal open beside the board, with its next step, a draft box and an AI summary",
+      },
+      {
+        src: "/images/projects/kestrel-crm-ask.png",
+        caption: "Ask the pipeline: next month's renewals, with a link to each record",
+      },
+      {
+        src: "/images/projects/kestrel-crm-phone.png",
+        caption: "The pipeline on a phone, one stage at a time",
+        fit: "contain",
+      },
+    ],
+    stack: ["Next.js", "TypeScript", "Supabase", "Postgres", "OpenAI", "Vercel"],
+    // From the repo's README. The cost is the average over the demo's first real calls;
+    // a summary or a draft cost $0.001 or less.
+    facts: [
+      { value: "312", label: "tests, run against a local copy of the database" },
+      { value: "~$0.003", label: "in AI cost per question" },
+      { value: "5", label: "fixed read-only lookups the AI can call" },
+      { value: "24 hrs", label: "until each visitor's private copy is cleared" },
+    ],
+    liveUrl: "https://kestrel-studio-crm.vercel.app",
+    repoUrl: "https://github.com/boriborexequiel24-AM/kestrel-studio-crm",
+  },
 ];
 
 export type Project = {
@@ -528,7 +568,7 @@ export const engagement = {
 };
 
 export const nav = [
-  { label: "Agentic", href: "#agentic" },
+  { label: "AI Apps", href: "#ai-apps" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
