@@ -407,6 +407,28 @@ export const projects: Project[] = [
     estimate: { saved: "8+ hrs/week", basis: "20 to 40 carrier emails/day × 5 to 10 min each" },
     featured: true,
   },
+  // The n8n side of two projects in `codeProjects`. Each cover is that project's own
+  // n8n screenshots, stacked on one canvas at the same zoom.
+  {
+    title: "AI Invoice Processing",
+    images: ["/images/projects/ai-invoice-processing-n8n.png"],
+    platform: "n8n",
+    category: "AI Workflow",
+    summary:
+      "Four workflows take an invoice from Gmail or an upload to Xero: OpenAI reads the PDF, validation checks run, and a signature-checked Slack click approves it and posts the bill with its PDF attached.",
+    result: "No manual data entry, repeat uploads caught, and nothing posted without approval.",
+    tools: ["n8n", "OpenAI", "Slack", "Xero"],
+  },
+  {
+    title: "Lead Warden: AI Lead Follow-Up",
+    images: ["/images/projects/lead-warden-n8n.png"],
+    platform: "n8n",
+    category: "AI Workflow",
+    summary:
+      "Six workflows answer every new lead: AI reads the message, picks one next step and replies by email, the owner approves prices in Slack, and quiet leads get a follow-up on day 1, 3 and 7.",
+    result: "Replies in seconds, day or night, no forgotten follow-ups, and no price sent without approval.",
+    tools: ["n8n", "OpenAI", "Gmail", "Slack"],
+  },
   {
     title: "Auto-Supplement Engine",
     images: ["/images/projects/auto-supplement-engine.png"],
@@ -449,28 +471,6 @@ export const projects: Project[] = [
       "Calculates days since last carrier activity and routes claims into 14- and 21-day escalation reminders with webhook-driven sheet sync.",
     result: "No forgotten follow-ups and no manual date tracking.",
     tools: ["n8n", "JobNimbus", "Google Sheets", "Gmail"],
-  },
-  // The n8n side of two projects in `codeProjects`. Each cover is that project's own
-  // n8n screenshots, stacked on one canvas at the same zoom.
-  {
-    title: "AI Invoice Processing",
-    images: ["/images/projects/ai-invoice-processing-n8n.png"],
-    platform: "n8n",
-    category: "AI Workflow",
-    summary:
-      "Four workflows take an invoice from Gmail or an upload to Xero: OpenAI reads the PDF, validation checks run, and a signature-checked Slack click approves it and posts the bill with its PDF attached.",
-    result: "No manual data entry, repeat uploads caught, and nothing posted without approval.",
-    tools: ["n8n", "OpenAI", "Slack", "Xero"],
-  },
-  {
-    title: "Lead Warden: AI Lead Follow-Up",
-    images: ["/images/projects/lead-warden-n8n.png"],
-    platform: "n8n",
-    category: "AI Workflow",
-    summary:
-      "Six workflows answer every new lead: AI reads the message, picks one next step and replies by email, the owner approves prices in Slack, and quiet leads get a follow-up on day 1, 3 and 7.",
-    result: "Replies in seconds, day or night, no forgotten follow-ups, and no price sent without approval.",
-    tools: ["n8n", "OpenAI", "Gmail", "Slack"],
   },
   {
     title: "AI Image Generation with Nano Banana Pro",
