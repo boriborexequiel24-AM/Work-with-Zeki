@@ -99,6 +99,11 @@ body {
   to { transform: translateX(-100%); }
 }
 
+/* The rows fade out at the screen edges, whatever the background is in either theme */
+.marquee {
+  --fade: clamp(2.5rem, 12vw, 14rem);
+  mask-image: linear-gradient(to right, transparent, #000 var(--fade), #000 calc(100% - var(--fade)), transparent);
+}
 .marquee-track {
   animation: marquee 70s linear infinite;
 }
@@ -116,5 +121,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .animate-blink { animation: none; }
+  .marquee { mask-image: none; }
   .marquee-track { animation: none; }
 }
