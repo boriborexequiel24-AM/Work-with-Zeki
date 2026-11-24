@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { projects, sections, type Platform } from "@/data/content";
 import { Section, SectionHeader, Tag } from "./ui";
+import { WorkflowViewer, type Shot } from "./WorkflowViewer";
 
 const filters: ("All" | Platform)[] = [
   "All",
@@ -15,6 +16,7 @@ const filters: ("All" | Platform)[] = [
 
 export function Work() {
   const [active, setActive] = useState<(typeof filters)[number]>("All");
+  const [open, setOpen] = useState<Shot | null>(null);
   const visible =
     active === "All" ? projects : projects.filter((p) => p.platform === active);
 
@@ -66,17 +68,41 @@ export function Work() {
           >
             {/* A workflow in two parts shows both, side by side. */}
             <div className="flex aspect-[16/9] gap-px overflow-hidden border-b border-line bg-line">
-              {p.images.map((src, i) => (
-                <div key={src} className="relative flex-1 overflow-hidden bg-bg">
-                  <Image
-                    src={src}
-                    alt={`${p.title} workflow in ${p.platform}${p.images.length > 1 ? `, part ${i + 1}` : ""}`}
-                    fill
-                    sizes="(min-width: 1152px) 384px, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
-              ))}
+              {p.images.map((src, i) => {
+                const part = p.images.length > 1 ? `, part ${i + 1}` : "";
+                const alt = `${p.title} workflow in ${p.platform}${part}`;
+                return (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => setOpen({ src, title: p.title + part, alt })}
+                    aria-label={`See the ${alt} at full size`}
+                    className="group/shot relative flex-1 cursor-zoom-in overflow-hidden bg-bg focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
+                  >
+                    <Image
+                      src={src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1152px) 384px, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className="absolute right-2.5 bottom-2.5 grid size-7 place-items-center rounded-md border border-line-strong bg-surface text-muted transition-colors group-hover/shot:text-accent"
+                    >
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5l-5 5M2.5 13.5l5-5"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                );
+              })}
             </div>
             <div className="flex flex-1 flex-col p-6">
               <div className="flex items-center justify-between font-mono text-[11px]">
@@ -87,6 +113,9 @@ export function Work() {
                 {p.title}
               </h3>
               <p className="mt-2 text-sm text-pretty text-muted">{p.summary}</p>
+              <p className="mt-3 text-sm text-pretty">
+                <span className="font-medium text-accent">{sections.work.resultLabel}</span> {p.result}
+              </p>
               {p.estimate && (
                 <p className="mt-4 rounded-lg bg-accent-soft px-3 py-2 font-mono text-[11px] text-muted">
                   <span className="font-medium text-accent">{p.estimate.saved} saved</span>{" "}
@@ -102,6 +131,8 @@ export function Work() {
           </li>
         ))}
       </ul>
+
+      {open && <WorkflowViewer key={open.src} shot={open} onClose={() => setOpen(null)} />}
     </Section>
   );
 }

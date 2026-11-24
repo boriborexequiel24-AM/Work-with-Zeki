@@ -74,6 +74,11 @@ body {
   color: var(--fg);
 }
 
+/* The page behind an open screenshot stays where it is */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+
 ::selection {
   background: var(--accent-soft);
   color: var(--fg);

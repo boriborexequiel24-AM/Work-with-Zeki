@@ -36,7 +36,8 @@ export const sections = {
     // Some covers show a workflow that is switched off, so don't say they all run in production.
     title: "Automations I've designed and built.",
     // The number of projects goes in front.
-    intro: "workflows. Here's what each one does and the stack behind it.",
+    intro: "workflows. Here's what each one does, what it gives the business, and the stack behind it. Click one to see it full size.",
+    resultLabel: "Result:",
   },
   experience: { eyebrow: "Experience", title: "Where I've done the work." },
   hiring: {
@@ -374,6 +375,11 @@ export type Project = {
   platform: Platform;
   category: string;
   summary: string;
+  /**
+   * What the business gets from it. It has to follow from what the workflow does, and
+   * has no numbers: a measured or estimated figure goes in `estimate`.
+   */
+  result: string;
   tools: string[];
   /** Workflow screenshots in public/images/projects. The first one is the cover. */
   images: string[];
@@ -389,11 +395,12 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: "Lead Processing + Inbound Carrier Email Automation",
-    images: ["/images/projects/lead-automated-processing.png"],
+    images: ["/images/projects/lead-processing-carrier-email.png"],
     platform: "n8n",
     category: "CRM Automation",
     summary:
       "Monitors carrier Gmail, AI-classifies claim data with OpenAI, parses PDF attachments, syncs JobNimbus contacts, jobs and tasks, and assigns leads via round-robin with dashboard logging.",
+    result: "No missed leads, no manual CRM entry, and leads split evenly across reps.",
     tools: ["n8n", "JobNimbus", "OpenAI", "Gmail"],
     // From Zeki (2026-11-12): 20 emails/day normally, up to 40 when busy, 5-10 min each by hand.
     // Low end: 20 × 5 min × 5 days ≈ 8.3 hrs/week. High end: 40 × 10 min × 5 days ≈ 33 hrs/week.
@@ -407,6 +414,7 @@ export const projects: Project[] = [
     category: "AI Workflow",
     summary:
       "Retrieves claim files from Drive, classifies documents across multi-branch pipelines (photos, estimates, measurements), sends them to Claude, and auto-generates HTML supplement reports back to Drive and Gmail.",
+    result: "Time saved on every claim, no manual file sorting, and the same report format each time.",
     tools: ["n8n", "Anthropic Claude", "Google Drive", "Gmail"],
     featured: true,
   },
@@ -417,6 +425,7 @@ export const projects: Project[] = [
     category: "CRM Automation",
     summary:
       "Monitors active JobNimbus claims, calculates elapsed time with custom JS logic, and routes into 30/60/120-day escalations with CRM notes, email alerts, and a Google Sheets audit trail.",
+    result: "Early warning on deadlines, no manual claim checks, and a full audit trail.",
     tools: ["n8n", "JobNimbus", "Gmail", "Google Sheets"],
     featured: true,
   },
@@ -427,6 +436,7 @@ export const projects: Project[] = [
     category: "Content Pipeline",
     summary:
       "Scheduled multi-model prompting, Nano Banana image generation, ElevenLabs voiceover, video generation, and approval routing with Cloudinary uploads.",
+    result: "Less manual effort, faster turnaround, and output that scales.",
     tools: ["n8n", "ElevenLabs", "Nano Banana", "Cloudinary"],
     featured: true,
   },
@@ -437,6 +447,7 @@ export const projects: Project[] = [
     category: "CRM Automation",
     summary:
       "Calculates days since last carrier activity and routes claims into 14- and 21-day escalation reminders with webhook-driven sheet sync.",
+    result: "No forgotten follow-ups and no manual date tracking.",
     tools: ["n8n", "JobNimbus", "Google Sheets", "Gmail"],
   },
   // The n8n side of two projects in `codeProjects`. Each cover is that project's own
@@ -448,6 +459,7 @@ export const projects: Project[] = [
     category: "AI Workflow",
     summary:
       "Four workflows take an invoice from Gmail or an upload to Xero: OpenAI reads the PDF, validation checks run, and a signature-checked Slack click approves it and posts the bill with its PDF attached.",
+    result: "No manual data entry, repeat uploads caught, and nothing posted without approval.",
     tools: ["n8n", "OpenAI", "Slack", "Xero"],
   },
   {
@@ -457,6 +469,7 @@ export const projects: Project[] = [
     category: "AI Workflow",
     summary:
       "Six workflows answer every new lead: AI reads the message, picks one next step and replies by email, the owner approves prices in Slack, and quiet leads get a follow-up on day 1, 3 and 7.",
+    result: "Replies in seconds, day or night, no forgotten follow-ups, and no price sent without approval.",
     tools: ["n8n", "OpenAI", "Gmail", "Slack"],
   },
   {
@@ -466,6 +479,7 @@ export const projects: Project[] = [
     category: "AI Workflow",
     summary:
       "Multi-modal image generation supporting text-to-image, image-to-image, and multi-image composition via the Kie.ai API.",
+    result: "Time saved on image creation, with three image modes in one workflow.",
     tools: ["n8n", "Kie.ai", "Webhook", "HTTP Request"],
   },
   {
@@ -475,6 +489,7 @@ export const projects: Project[] = [
     category: "Voice / Calling",
     summary:
       "Form submissions trigger AI voice calls through Vapi; call outcomes are tracked and logged to Google Sheets.",
+    result: "Leads called as soon as they submit, no manual dialing, and every call outcome logged.",
     tools: ["n8n", "Vapi", "Google Sheets", "Webhook"],
   },
   {
@@ -483,6 +498,7 @@ export const projects: Project[] = [
     platform: "n8n",
     category: "AI Workflow",
     summary: "Webhook-driven Facebook Messenger agent backed by OpenRouter and Google Gemini.",
+    result: "Faster replies on Messenger, day and night.",
     tools: ["n8n", "OpenRouter", "Google Gemini", "Facebook"],
   },
   {
@@ -491,6 +507,7 @@ export const projects: Project[] = [
     platform: "n8n",
     category: "Email Automation",
     summary: "AI text classifier that routes Gmail messages into separate downstream workflows based on intent.",
+    result: "No manual inbox sorting, urgent emails flagged, and replies drafted automatically.",
     tools: ["n8n", "Gmail", "Claude"],
   },
   {
@@ -500,6 +517,7 @@ export const projects: Project[] = [
     category: "Reporting",
     summary:
       "Completing an Asana task generates a Xero transaction-level report and attaches the CSV back to the task.",
+    result: "No manual report building, and the report is ready when the task is done.",
     tools: ["Make", "Asana", "Xero", "Google Sheets"],
   },
   {
@@ -508,6 +526,7 @@ export const projects: Project[] = [
     platform: "Make",
     category: "Email Automation",
     summary: "AI classifies inbound Gmail attachments and files them into the correct Google Drive folders.",
+    result: "No manual filing, every file logged, and attachments that are easy to find.",
     tools: ["Make", "Gmail", "Google Drive"],
   },
   {
@@ -517,6 +536,7 @@ export const projects: Project[] = [
     category: "CRM Automation",
     summary:
       "30-step Zapier workflow that routes leads through follow-ups, quotes, approvals, and closures based on Asana task status.",
+    result: "No forgotten follow-ups, and consistent emails at every stage.",
     tools: ["Zapier", "Asana", "Gmail", "Google Drive"],
   },
   {
@@ -525,6 +545,7 @@ export const projects: Project[] = [
     platform: "Zapier",
     category: "Content Pipeline",
     summary: "Transcribes a single source video and republishes it as platform-tailored posts on Facebook and LinkedIn.",
+    result: "Time saved on every post: one video becomes content for two platforms.",
     tools: ["Zapier", "Google Drive", "AI by Zapier", "LinkedIn"],
   },
   {
@@ -534,6 +555,7 @@ export const projects: Project[] = [
     category: "CRM Automation",
     summary:
       "Captures inbound leads and triggers instant SMS follow-up, scheduled calls, and tag-based response handling.",
+    result: "No missed leads, an instant first reply, and no manual chasing.",
     tools: ["GoHighLevel", "SMS", "Calls"],
   },
 ];
