@@ -194,21 +194,43 @@ html:has(dialog[open]) {
   [data-reveal], .line { opacity: 1 !important; translate: none !important; }
 }
 
-/* Workflow drawings beside the headings, see components/FlowLine.tsx */
+/* Workflow drawings beside the headings, see components/FlowLine.tsx. First the drawing
+   itself, then the lit copy on top that the run switches on. */
 .flow-edge { stroke: var(--line-strong); stroke-width: 1.5; stroke-dasharray: 1; }
-.flow-node {
-  fill: var(--surface);
-  stroke: var(--line-strong);
-  stroke-width: 1.5;
-  transform-box: fill-box;
-  transform-origin: center;
+.flow-node, .flow-step { transform-box: fill-box; transform-origin: center; }
+.flow-node rect { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+.flow-node path, .flow-step path {
+  stroke: var(--subtle);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
-.flow-end { stroke: var(--accent); fill: var(--accent-soft); }
+.flow-end rect { stroke: var(--accent); }
+.flow-end path { stroke: var(--accent); }
+.flow-lit { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.flow-pulse {
+  stroke: var(--accent);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 0.14 2;
+  opacity: 0;
+}
+.flow-step { opacity: 0; }
+.flow-step rect { fill: var(--bg); stroke: var(--accent); stroke-width: 1.75; }
+.flow-step path { stroke: var(--accent); }
+.flow-done rect { fill: var(--accent); }
+.flow-done path { stroke: var(--on-accent); stroke-width: 2.4; }
 [data-reveal="wait"] .flow-edge { stroke-dashoffset: 1; }
 [data-reveal="wait"] .flow-node { opacity: 0; scale: 0.4; }
 [data-reveal="in"] .flow-edge { transition: stroke-dashoffset 500ms var(--motion-ease) var(--d); }
 [data-reveal="in"] .flow-node {
   transition: opacity 250ms ease-out var(--d), scale 400ms var(--motion-ease) var(--d);
+}
+/* Out of the way until you point at the drawing or tab to it */
+.flow-pause { opacity: 0; }
+.flow:hover .flow-pause, .flow-pause:focus-visible { opacity: 1; }
+@media (hover: none) {
+  .flow-pause { opacity: 0.7; }
 }
 
 /* A faint n8n canvas behind the hero and the contact form */
@@ -301,6 +323,7 @@ html:has(dialog[open]) {
   .animate-menu-in, .animate-fade-in, .draw-check { animation: none; }
   .enter, .enter-down, .word, .portrait::after { animation: none; }
   .lift { transition: none; }
+  .flow-pause { display: none; }
   .lift:hover { translate: none; }
   .press, .arrow, .nav-link::after { transition: none; }
   .press:active:not(:disabled) { scale: none; }

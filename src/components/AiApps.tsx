@@ -15,7 +15,9 @@ export function AiApps() {
           index="01"
           flow="agent"
           enter={650}
-          {...sections.aiApps}
+          eyebrow={sections.aiApps.eyebrow}
+          title={sections.aiApps.title}
+          intro={sections.aiApps.intro}
         />
 
         <ProjectCarousel projects={codeProjects} />

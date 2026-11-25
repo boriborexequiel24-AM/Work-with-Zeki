@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
-import type { CodeProject } from "@/data/content";
-import { Arrow, Tag } from "./ui";
+import { sections, type CodeProject } from "@/data/content";
+import { Arrow, ButtonLink, DemoLink, Tag } from "./ui";
 
 /**
  * One project per slide, with a tab for each project above the card.
@@ -258,26 +258,12 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
                 ))}
               </div>
 
-              <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-6 font-mono text-xs">
-                {p.liveUrl && (
-                  <a
-                    href={p.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex min-h-11 items-center gap-2 text-accent underline-offset-4 hover:underline"
-                  >
-                    Try the live demo <Arrow />
-                  </a>
-                )}
+              <div className="mt-auto flex flex-col gap-3 pt-7 sm:flex-row sm:flex-wrap">
+                {p.liveUrl && <DemoLink href={p.liveUrl}>{sections.aiApps.demoLink}</DemoLink>}
                 {p.repoUrl && (
-                  <a
-                    href={p.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex min-h-11 items-center gap-2 text-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
-                  >
-                    Read the code <Arrow />
-                  </a>
+                  <ButtonLink href={p.repoUrl} variant="ghost" external>
+                    {sections.aiApps.codeLink} <Arrow />
+                  </ButtonLink>
                 )}
               </div>
             </div>

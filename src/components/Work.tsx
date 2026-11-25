@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, type CSSProperties, type MouseEvent } from "react";
 import { projects, sections, type Platform } from "@/data/content";
 import { imageReady, now, withTransition } from "@/lib/transition";
-import { Arrow, Section, SectionHeader, Tag } from "./ui";
+import { DemoLink, Section, SectionHeader, Tag } from "./ui";
 import { useViewer } from "./WorkflowViewer";
 
 const filters: ("All" | Platform)[] = [
@@ -183,14 +183,9 @@ export function Work() {
                 ))}
               </div>
               {p.liveUrl && (
-                <a
-                  href={p.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex min-h-11 items-center gap-2 self-start font-mono text-xs text-accent underline-offset-4 hover:underline"
-                >
-                  {sections.work.demoLink} <Arrow />
-                </a>
+                <div className="mt-6 flex flex-col sm:flex-row">
+                  <DemoLink href={p.liveUrl}>{sections.work.demoLink}</DemoLink>
+                </div>
               )}
             </div>
           </li>

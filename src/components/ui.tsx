@@ -86,15 +86,16 @@ export function ButtonLink({
 }: {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "ghost";
+  variant?: "primary" | "accent" | "ghost";
   external?: boolean;
 }) {
   const base =
     "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium press focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
-  const styles =
-    variant === "primary"
-      ? "bg-fg text-bg hover:bg-accent hover:text-on-accent"
-      : "border border-line-strong text-fg hover:border-fg/40 hover:bg-surface";
+  const styles = {
+    primary: "bg-fg text-bg hover:bg-accent hover:text-on-accent",
+    accent: "bg-accent text-on-accent hover:opacity-90",
+    ghost: "border border-line-strong text-fg hover:border-fg/40 hover:bg-surface",
+  }[variant];
   return (
     <a
       href={href}
@@ -103,6 +104,16 @@ export function ButtonLink({
     >
       {children}
     </a>
+  );
+}
+
+/** The way into a live demo: a filled button with a blinking "live" dot. */
+export function DemoLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <ButtonLink href={href} variant="accent" external>
+      <span className="animate-blink size-1.5 rounded-full bg-on-accent" aria-hidden="true" />
+      {children} <Arrow />
+    </ButtonLink>
   );
 }
 

@@ -33,6 +33,8 @@ export const sections = {
     title: "AI apps and agents, shipped as working software.",
     intro:
       "These are applications, not platform workflows. I design and write them with Claude Code, the source is public, and the demos are live for anyone to try.",
+    demoLink: "Try the live demo",
+    codeLink: "Read the code",
   },
   tools: {
     eyebrow: "Stack",
