@@ -51,7 +51,7 @@ export function Tools() {
         </div>
       </Container>
 
-      <div className="marquee space-y-3 overflow-hidden" data-paused={paused}>
+      <div data-reveal="" className="marquee space-y-3 overflow-hidden" data-paused={paused}>
         {rows.map((groups, i) => (
           <div key={groups[0].label} className="flex">
             <Track groups={groups} reverse={i === 1} />

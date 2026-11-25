@@ -1,12 +1,16 @@
 "use client";
 
+import { withTransition } from "@/lib/transition";
+
 // Switches between light and dark and remembers the choice.
 // Which icon shows is handled in CSS (globals.css), so server and client HTML always match.
 export function ThemeToggle() {
   function toggle() {
     const root = document.documentElement;
     const next = root.dataset.theme === "dark" ? "light" : "dark";
-    root.dataset.theme = next;
+    withTransition("theme", () => {
+      root.dataset.theme = next;
+    });
     try {
       localStorage.setItem("theme", next);
     } catch {

@@ -7,7 +7,7 @@ import { Container } from "./ui";
 
 export function Nav() {
   return (
-    <div className="site-nav sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur-md">
+    <div className="site-nav enter-down sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between gap-4">
         <a href="#top" className="flex min-h-11 min-w-11 items-center gap-2.5 font-mono text-sm">
           <Image src={profile.logo} alt="" width={28} height={28} className="size-7 rounded-md object-cover" />

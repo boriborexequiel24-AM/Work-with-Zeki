@@ -36,10 +36,10 @@ All of its existing content (bio, experience, 14 projects, certs, pricing, conta
 - `src/data/content.ts`: **all site copy lives here.** Edit content in this file, not in the components.
 
 ## Design
-- Clean and simple with a techy touch. Two themes: **light** ("clean": off-white, white cards, teal-700 accent) and **dark** ("quiet": near-black, soft contrast, teal-300 accent). No gradients, glows or grid backgrounds.
+- Clean and simple with a techy touch. Two themes: **light** ("clean": off-white, white cards, teal-700 accent) and **dark** ("quiet": near-black, soft contrast, teal-300 accent). No gradients or glows. Two quiet background details only: the dot canvas behind the hero and the contact form, and the workflow drawings beside section headings (`FlowLine.tsx`).
 - Theme is `data-theme` on `<html>`. The inline script in `layout.tsx` picks the saved choice or the system setting, and `ThemeToggle` switches and saves it.
 - Techy touches come from Geist Mono labels, numbered section headers, and real workflow screenshots, not decoration.
-- Motion is short (up to 300ms for clicks, 450ms for cards rising in, easing out) and explains a change, never decoration. It is plain CSS plus the browser's view transitions (`src/lib/transition.ts`), no library, and it all turns off with `prefers-reduced-motion`. Don't animate the hero's first view.
+- Motion explains or introduces, and stays calm: up to 300ms for clicks, about 700ms for things arriving (page load and scroll). Plain CSS, the browser's view transitions (`src/lib/transition.ts`) and one small wheel smoother (`SmoothScroll.tsx`), no library. It all turns off with `prefers-reduced-motion`. Never fade, move or scale the hero's portrait itself: it delays when the page counts as loaded.
 - Fonts: Geist (sans) and Geist Mono (labels and meta text)
 - Tailwind color tokens (defined per theme in `globals.css`): `bg`, `surface`, `surface-2`, `line`, `line-strong`, `fg`, `muted`, `subtle`, `accent`, `accent-soft`, `on-accent`, `danger`. Use tokens, never hard-coded colors, so both themes work.
 - Images live in `public/images/` (projects, certs, profile, logo). Crop out browser bars before adding screenshots: they can leak the n8n server URL and bookmarks.

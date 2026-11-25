@@ -12,7 +12,7 @@ export const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: r
  * `after` runs once the new page has been captured and the animation is over.
  */
 export function withTransition(
-  kind: "filter" | "viewer",
+  kind: "filter" | "viewer" | "theme",
   update: () => void | Promise<void>,
   after?: () => void,
 ) {

@@ -6,6 +6,7 @@ import { Hero } from "@/components/Hero";
 import { Hiring } from "@/components/Hiring";
 import { Nav } from "@/components/Nav";
 import { Reveal } from "@/components/Reveal";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { Tools } from "@/components/Tools";
 import { Work } from "@/components/Work";
 
@@ -24,6 +25,7 @@ export default function Home() {
       </main>
       <Footer />
       <Reveal />
+      <SmoothScroll />
     </>
   );
 }

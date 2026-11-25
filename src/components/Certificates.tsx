@@ -14,7 +14,7 @@ export function Certificates() {
         {certifications.map((c) => {
           const alt = `${c.title} certificate`;
           return (
-            <li key={c.title} data-reveal="" className="overflow-hidden rounded-xl border border-line bg-surface">
+            <li key={c.title} data-reveal="" className="lift overflow-hidden rounded-xl border border-line bg-surface hover:border-line-strong">
               <button
                 type="button"
                 onClick={(e) =>

@@ -13,6 +13,8 @@ export function AiApps() {
       <Section id="ai-apps">
         <SectionHeader
           index="01"
+          flow="agent"
+          enter={650}
           {...sections.aiApps}
         />
 

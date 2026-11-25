@@ -24,13 +24,13 @@ export function Reveal() {
           observer.unobserve(entry.target);
           const el = entry.target as HTMLElement;
           // Cards of one row arrive one after another.
-          el.style.transitionDelay = `${Math.min(order++, 3) * 60}ms`;
+          el.style.transitionDelay = `${Math.min(order++, 3) * 90}ms`;
           el.dataset.reveal = "in";
           timers.push(
             setTimeout(() => {
               el.style.transitionDelay = "";
               el.dataset.reveal = "";
-            }, 900),
+            }, 1800),
           );
         }
       },

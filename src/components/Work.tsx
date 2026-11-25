@@ -51,6 +51,7 @@ export function Work() {
     <Section id="work">
       <SectionHeader
         index="03"
+        flow="branch"
         eyebrow={sections.work.eyebrow}
         title={sections.work.title}
         intro={`${projects.length} ${sections.work.intro}`}
@@ -92,7 +93,7 @@ export function Work() {
             data-reveal=""
             hidden={!expanded && n >= FIRST}
             style={{ "--card-name": cardName(p.title) } as CSSProperties}
-            className={`work-card group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-line-strong ${
+            className={`work-card lift group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-colors hover:border-line-strong ${
               p.featured ? "md:col-span-2 lg:col-span-3 lg:flex-row" : ""
             }`}
           >

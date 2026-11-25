@@ -9,6 +9,7 @@ export function Hiring() {
     <Section id="hiring" className="border-t border-line">
       <SectionHeader
         index="05"
+        flow="merge"
         eyebrow={sections.hiring.eyebrow}
         title={sections.hiring.title}
         intro={sections.hiring.intro}

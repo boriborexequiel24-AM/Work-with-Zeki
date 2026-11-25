@@ -128,7 +128,7 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
   const many = projects.length > 1;
 
   return (
-    <div data-reveal="">
+    <div data-reveal="" className="enter" style={{ "--d": "800ms" } as CSSProperties}>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
         <div
           ref={tabsRef}

@@ -43,7 +43,7 @@ export function Contact() {
     "w-full rounded-lg border border-line bg-bg px-4 py-3 text-base sm:text-sm placeholder:text-subtle focus:border-accent/60";
 
   return (
-    <Section id="contact" className="border-t border-line">
+    <Section id="contact" className="dots dots-up border-t border-line">
       <div className="grid gap-14 lg:grid-cols-2">
         <div>
           <SectionHeader
@@ -56,7 +56,7 @@ export function Contact() {
             }
             intro={sections.contact.intro}
           />
-          <dl className="space-y-3">
+          <dl data-reveal="" className="space-y-3">
             <div>
               <dt className="font-mono text-xs text-subtle uppercase">Email</dt>
               <dd>

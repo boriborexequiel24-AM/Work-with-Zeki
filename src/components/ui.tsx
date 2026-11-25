@@ -1,4 +1,8 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import { FlowLine, type FlowName } from "./FlowLine";
+
+/** Delay for the `enter` and `line` animations in globals.css. */
+export const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`mx-auto w-full max-w-6xl px-5 sm:px-8 ${className}`}>{children}</div>;
@@ -26,6 +30,8 @@ export function SectionHeader({
   title,
   intro,
   className = "mb-14",
+  flow,
+  enter,
 }: {
   index: string;
   eyebrow: string;
@@ -33,14 +39,33 @@ export function SectionHeader({
   intro?: string;
   /** Replaces the space below the header. */
   className?: string;
+  /** A small workflow drawing beside the heading, on wide screens. */
+  flow?: FlowName;
+  /** For a header that can be on the first screen: arrives with the hero, after this many ms. */
+  enter?: number;
 }) {
   return (
-    <header data-reveal="" className={`max-w-2xl ${className}`}>
-      <p className="mb-4 font-mono text-xs tracking-widest text-accent uppercase">
-        <span className="text-subtle">{index} /</span> {eyebrow}
-      </p>
-      <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">{title}</h2>
-      {intro && <p className="mt-4 text-lg text-pretty text-muted">{intro}</p>}
+    <header
+      data-reveal=""
+      style={enter === undefined ? undefined : delay(enter)}
+      className={`reveal-lines ${flow ? "flex items-center justify-between gap-10" : "max-w-2xl"} ${
+        enter === undefined ? "" : "enter"
+      } ${className}`}
+    >
+      <div className="max-w-2xl">
+        <p className="line mb-4 font-mono text-xs tracking-widest text-accent uppercase">
+          <span className="text-subtle">{index} /</span> {eyebrow}
+        </p>
+        <h2 style={delay(80)} className="line text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          {title}
+        </h2>
+        {intro && (
+          <p style={delay(160)} className="line mt-4 text-lg text-pretty text-muted">
+            {intro}
+          </p>
+        )}
+      </div>
+      {flow && <FlowLine name={flow} />}
     </header>
   );
 }
