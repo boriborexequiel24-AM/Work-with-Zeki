@@ -6,7 +6,7 @@ export const profile = {
   shortName: "Zeki Boribor",
   role: "Workflow & AI Automation Specialist",
   tagline:
-    "I design enterprise workflow automations and AI integrations that turn complex business processes into streamlined, intelligent systems.",
+    "I'm Zeki, an AI automation specialist. I build n8n, Make and Zapier workflows, AI agents and custom apps that take the repetitive work off your team.",
   email: "workwithzeki24@gmail.com",
   // The public booking page of that account's Google Calendar (Share, then "Website embed").
   // Empty hides every "Book a call" button.
@@ -14,12 +14,27 @@ export const profile = {
     "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1P_VAC_LpPFM_031DjEKtpgqMgQSiwNc1RiPTJOoouPXbbo8A8tKKAwC6yuerl1TwHcY2Izfgk?gv=true" as string,
   linkedin: "https://www.linkedin.com/in/exequiel-boribor-98a832189",
   github: "https://github.com/boriborexequiel24-AM",
+  country: "Philippines",
   availability: "Open to roles and contract work",
   photo: "/images/profile.png",
   logo: "/images/logo.png",
   site: "https://workwithzeki.vercel.app",
   // Made from docs/cv/cv.html.
   cv: "/Exequiel-Boribor-CV.pdf",
+};
+
+// What search engines and link previews show. Other text for them comes from `profile`.
+export const seo = {
+  // Google cuts a title at about 60 characters and a description at about 155.
+  title: 'Exequiel "Zeki" Boribor | n8n & AI Automation Specialist',
+  description:
+    "AI automation specialist in the Philippines, working remotely. I build n8n, Make and Zapier workflows, AI agents and custom apps. Live demos to try.",
+  otherNames: ["Zeki", "Zeki Boribor", "Exequiel Boribor"],
+  topics: ["Workflow automation", "AI automation", "AI agents", "CRM automation", "AI document processing"],
+  // The codes from Google Search Console and Bing Webmaster Tools ("HTML tag" method).
+  // They are public. Empty leaves the tag out.
+  googleVerification: "ygvbe1cqnEkV2PBohRwz9Cu-qxnUPusaOBEQJrRhZVU" as string,
+  bingVerification: "" as string,
 };
 
 // Each section's heading, in page order.
@@ -75,6 +90,18 @@ export const sections = {
     title: "Book a call",
     newTab: "Open in a new tab",
     contactLabel: "Calendar",
+  },
+  faq: { eyebrow: "Questions", title: "Quick answers before you write." },
+  caseStudy: {
+    link: "Read the case study",
+    home: "Home",
+    back: "All work",
+    breadcrumb: "Breadcrumb",
+    by: "By",
+    stack: "Built with",
+    ctaTitle: "Have a process like this one?",
+    ctaBody: "Walk me through it on a short call, and I'll tell you how I'd approach it and whether I'm the right person for it.",
+    more: "More case studies",
   },
   contact: {
     eyebrow: "Contact",
@@ -235,6 +262,8 @@ export type CodeProject = {
   facts: { value: string; label: string }[];
   liveUrl?: string;
   repoUrl?: string;
+  /** Its page in caseStudies.ts. */
+  caseStudy?: string;
 };
 
 export const codeProjects: CodeProject[] = [
@@ -294,6 +323,7 @@ export const codeProjects: CodeProject[] = [
       { value: "$0.0025", label: "in AI cost per invoice" },
     ],
     liveUrl: "https://ai-invoice-processing-six.vercel.app",
+    caseStudy: "ai-invoice-processing",
     repoUrl: "https://github.com/boriborexequiel24-AM/ai-invoice-processing",
   },
   {
@@ -359,6 +389,7 @@ export const codeProjects: CodeProject[] = [
       { value: "Day 1·3·7", label: "follow-ups, then closed on day 10" },
     ],
     liveUrl: "https://leadwarden.vercel.app",
+    caseStudy: "ai-lead-follow-up",
     repoUrl: "https://github.com/boriborexequiel24-AM/ai-lead-follow-up",
   },
   {
@@ -399,6 +430,7 @@ export const codeProjects: CodeProject[] = [
       { value: "24 hrs", label: "until each visitor's private copy is cleared" },
     ],
     liveUrl: "https://kestrel-studio-crm.vercel.app",
+    caseStudy: "custom-crm-with-ai",
     repoUrl: "https://github.com/boriborexequiel24-AM/kestrel-studio-crm",
   },
 ];
@@ -424,6 +456,8 @@ export type Project = {
   estimate?: { saved: string; basis: string };
   /** A demo anyone can use. */
   liveUrl?: string;
+  /** Its page in caseStudies.ts. */
+  caseStudy?: string;
   /** Shown large, first, with the problem it solves. Put these at the top of the list. */
   featured?: { problem: string };
 };
@@ -441,6 +475,7 @@ export const projects: Project[] = [
     // From Zeki (2026-11-12): 20 emails/day normally, up to 40 when busy, 5-10 min each by hand.
     // Low end: 20 × 5 min × 5 days ≈ 8.3 hrs/week. High end: 40 × 10 min × 5 days ≈ 33 hrs/week.
     estimate: { saved: "8+ hrs/week", basis: "20 to 40 carrier emails/day × 5 to 10 min each" },
+    caseStudy: "insurance-email-automation",
     featured: {
       problem:
         "The inbox got 20 to 40 carrier emails a day. Each one took 5 to 10 minutes to read, enter in the CRM and pass to a rep.",
@@ -458,6 +493,7 @@ export const projects: Project[] = [
     result: "No manual data entry, repeat uploads caught, and nothing posted without approval.",
     tools: ["n8n", "OpenAI", "Slack", "Xero"],
     liveUrl: "https://ai-invoice-processing-six.vercel.app",
+    caseStudy: "ai-invoice-processing",
     featured: {
       problem: "Someone has to open every invoice, retype it and check the numbers before it can be paid.",
     },
@@ -472,6 +508,7 @@ export const projects: Project[] = [
     result: "Replies in seconds, day or night, no forgotten follow-ups, and no price sent without approval.",
     tools: ["n8n", "OpenAI", "Gmail", "Slack"],
     liveUrl: "https://leadwarden.vercel.app",
+    caseStudy: "ai-lead-follow-up",
     featured: {
       problem: "A lead that arrives after hours or goes quiet is easy to lose, and nobody has time to chase them all.",
     },
@@ -652,11 +689,39 @@ export const engagement = {
   ],
   // Plain facts. The client regions come from the roles in Experience.
   facts: [
-    { label: "Working", value: "Remote, with US and EU clients" },
+    { label: "Working", value: "Remote from the Philippines, with US and EU clients" },
     { label: "Open to", value: "Full-time, part-time, or contract" },
     { label: "Reply", value: "Within one business day" },
   ],
 };
+
+export const faq = [
+  {
+    question: "What do you automate?",
+    answer:
+      "Work that piles up in inboxes, spreadsheets and CRMs: intake, follow-ups, approvals, document processing and reporting. AI does the reading a person used to do, and a person still approves what matters.",
+  },
+  {
+    question: "Which tools do you work with?",
+    answer:
+      "Mostly n8n, plus Make, Zapier and GoHighLevel, connected to the CRM, email and accounting tools you already use. For AI I use OpenAI, Claude and Gemini. When a workflow needs its own app, I build it with Next.js and Supabase.",
+  },
+  {
+    question: "Do you work with clients outside the Philippines?",
+    answer:
+      "Yes. I work remotely, and my clients so far have been in the US and the Netherlands. I'm open to full-time, part-time and contract work.",
+  },
+  {
+    question: "What happens first, and what does it cost?",
+    answer:
+      "A short call where you walk me through the process. I tell you how I'd approach it and whether I'm the right person for it. The cost depends on the work, so there's no fixed rate here. The scope is agreed in writing before anything starts.",
+  },
+  {
+    question: "Can my team run it without you?",
+    answer:
+      "Yes. A project is tested against real cases, documented and handed over so your team can run it. If you'd rather not look after it yourselves, I also do ongoing support: monitoring, fixes and changes.",
+  },
+];
 
 export const nav = [
   { label: "AI Apps", href: "#ai-apps" },

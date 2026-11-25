@@ -31,9 +31,10 @@ All of its existing content (bio, experience, 14 projects, certs, pricing, conta
 - Use sample or demo data only, never real client data
 
 ## Structure
-- `src/app/`: single-page site (`page.tsx`), layout and metadata, and `globals.css` with the design tokens
+- `src/app/`: home page (`page.tsx`), case study pages (`work/<slug>/`, one small file each around `CaseStudyPage.tsx`), layout and metadata, and `globals.css` with the design tokens
 - `src/components/`: one component per section (Hero, AiApps, Tools, Work, Experience, Hiring, Contact), plus shared pieces in `ui.tsx`
-- `src/data/content.ts`: **all site copy lives here.** Edit content in this file, not in the components.
+- `src/data/content.ts`: **all site copy lives here.** Edit content in this file, not in the components. The case studies' text is in `src/data/caseStudies.ts`
+- Search: titles and descriptions are in `seo` (content.ts), structured data in `src/lib/structuredData.ts`. Structured data only repeats what a visitor can see. Only add a page with something new to say: near-copies for other keywords count as spam to Google
 
 ## Design
 - Clean and simple with a techy touch. Two themes: **light** ("clean": off-white, white cards, teal-700 accent) and **dark** ("quiet": near-black, soft contrast, teal-300 accent). No gradients or glows. Two quiet background details only: the dot canvas behind the hero and the contact form, and the workflow drawings beside section headings (`FlowLine.tsx`).

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { profile } from "@/data/content";
+import { profile, seo } from "@/data/content";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,9 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const title = "Exequiel Boribor | Workflow & AI Automation Specialist";
-const description =
-  "Workflow automations and AI apps built with n8n, Make, Zapier, Next.js and LLMs. Live demos you can try and public code you can read.";
+const { title, description } = seo;
 
 // The preview picture is opengraph-image.png, next to this file.
 export const metadata: Metadata = {
@@ -23,8 +21,12 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/" },
-  openGraph: { title, description, url: "/", siteName: "Zeki Boribor", type: "website", locale: "en_US" },
+  openGraph: { title, description, url: "/", siteName: profile.shortName, type: "website", locale: "en_US" },
   twitter: { card: "summary_large_image", title, description },
+  verification: {
+    google: seo.googleVerification || undefined,
+    other: seo.bingVerification ? { "msvalidate.01": seo.bingVerification } : undefined,
+  },
 };
 
 // Runs before first paint so the page never flashes the wrong theme.

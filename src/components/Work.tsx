@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, type CSSProperties, type MouseEvent } from "react";
 import { projects, sections, type Platform } from "@/data/content";
 import { imageReady, now, withTransition } from "@/lib/transition";
-import { DemoLink, Section, SectionHeader, Tag } from "./ui";
+import { ButtonLink, DemoLink, Section, SectionHeader, Tag } from "./ui";
 import { useViewer } from "./WorkflowViewer";
 
 const filters: ("All" | Platform)[] = [
@@ -182,9 +182,14 @@ export function Work() {
                   <Tag key={t}>{t}</Tag>
                 ))}
               </div>
-              {p.liveUrl && (
-                <div className="mt-6 flex flex-col sm:flex-row">
-                  <DemoLink href={p.liveUrl}>{sections.work.demoLink}</DemoLink>
+              {(p.liveUrl || p.caseStudy) && (
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  {p.liveUrl && <DemoLink href={p.liveUrl}>{sections.work.demoLink}</DemoLink>}
+                  {p.caseStudy && (
+                    <ButtonLink href={`/work/${p.caseStudy}`} variant="ghost">
+                      {sections.caseStudy.link}
+                    </ButtonLink>
+                  )}
                 </div>
               )}
             </div>

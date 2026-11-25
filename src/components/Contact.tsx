@@ -48,7 +48,7 @@ export function Contact() {
       <div className="grid gap-14 lg:grid-cols-2">
         <div>
           <SectionHeader
-            index="06"
+            index="07"
             eyebrow={sections.contact.eyebrow}
             title={
               <>

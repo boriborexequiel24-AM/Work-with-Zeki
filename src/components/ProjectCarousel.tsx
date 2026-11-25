@@ -260,6 +260,11 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
 
               <div className="mt-auto flex flex-col gap-3 pt-7 sm:flex-row sm:flex-wrap">
                 {p.liveUrl && <DemoLink href={p.liveUrl}>{sections.aiApps.demoLink}</DemoLink>}
+                {p.caseStudy && (
+                  <ButtonLink href={`/work/${p.caseStudy}`} variant="ghost">
+                    {sections.caseStudy.link}
+                  </ButtonLink>
+                )}
                 {p.repoUrl && (
                   <ButtonLink href={p.repoUrl} variant="ghost" external>
                     {sections.aiApps.codeLink} <Arrow />

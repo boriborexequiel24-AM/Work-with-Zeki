@@ -5,7 +5,7 @@ import { nav } from "@/data/content";
 import { useActiveSection } from "@/lib/useActiveSection";
 
 // The section links for phones, where the row in Nav doesn't fit.
-export function MobileMenu() {
+export function MobileMenu({ base }: { base: string }) {
   const [open, setOpen] = useState(false);
   const active = useActiveSection();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -59,7 +59,7 @@ export function MobileMenu() {
         {nav.map((item) => (
           <a
             key={item.href}
-            href={item.href}
+            href={base + item.href}
             onClick={() => setOpen(false)}
             aria-current={active === item.href ? "location" : undefined}
             className="block border-b border-line py-3.5 text-base text-muted transition-colors last:border-b-0 hover:text-fg aria-[current]:text-accent"
