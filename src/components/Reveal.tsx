@@ -7,6 +7,9 @@ import { useEffect } from "react";
  * Only what is still below the screen when the page opens is hidden, and only from here,
  * so nothing is ever missing without JavaScript and the first view loads at full speed.
  * The look is in globals.css.
+ *
+ * A check every second backs the observer up: it shows whatever is on screen or already
+ * passed and still hidden, without animating it. Once, in testing, the observer missed some.
  */
 export function Reveal() {
   useEffect(() => {
@@ -42,8 +45,24 @@ export function Reveal() {
       observer.observe(el);
     }
 
+    const net = setInterval(() => {
+      let left = 0;
+      for (const el of waiting) {
+        if (el.dataset.reveal !== "wait") continue;
+        // A little inside the screen, so the observer normally gets there first.
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.9) {
+          observer.unobserve(el);
+          el.dataset.reveal = "";
+        } else {
+          left++;
+        }
+      }
+      if (left === 0) clearInterval(net);
+    }, 1000);
+
     return () => {
       observer.disconnect();
+      clearInterval(net);
       timers.forEach(clearTimeout);
       for (const el of waiting) {
         el.style.transitionDelay = "";
