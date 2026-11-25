@@ -78,6 +78,6 @@ Without the environment variables the site still runs. The contact form just rep
 
 I'm available for freelance automation and AI integration projects.
 
-- **Email:** [boribor.exequiel24@gmail.com](mailto:boribor.exequiel24@gmail.com)
+- **Email:** [workwithzeki24@gmail.com](mailto:workwithzeki24@gmail.com)
 - **LinkedIn:** [Exequiel Boribor](https://www.linkedin.com/in/exequiel-boribor-98a832189)
 - **Or** use the contact form on the [live site](https://workwithzeki.vercel.app/#contact). It goes straight into my n8n.

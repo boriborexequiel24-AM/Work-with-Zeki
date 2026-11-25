@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { profile, sections } from "@/data/content";
+import { BookCall } from "./BookCall";
 import { Arrow, Section, SectionHeader } from "./ui";
 
 type Status = { state: "idle" | "sending" | "sent" } | { state: "error"; message: string };
@@ -57,6 +58,14 @@ export function Contact() {
             intro={sections.contact.intro}
           />
           <dl data-reveal="" className="space-y-3">
+            {profile.booking && (
+              <div className="pb-2">
+                <dt className="font-mono text-xs text-subtle uppercase">{sections.booking.contactLabel}</dt>
+                <dd className="pt-2">
+                  <BookCall className="press inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-on-accent hover:opacity-90" />
+                </dd>
+              </div>
+            )}
             <div>
               <dt className="font-mono text-xs text-subtle uppercase">Email</dt>
               <dd>

@@ -7,7 +7,11 @@ export const profile = {
   role: "Workflow & AI Automation Specialist",
   tagline:
     "I design enterprise workflow automations and AI integrations that turn complex business processes into streamlined, intelligent systems.",
-  email: "boribor.exequiel24@gmail.com",
+  email: "workwithzeki24@gmail.com",
+  // The public booking page of that account's Google Calendar (Share, then "Website embed").
+  // Empty hides every "Book a call" button.
+  booking:
+    "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1P_VAC_LpPFM_031DjEKtpgqMgQSiwNc1RiPTJOoouPXbbo8A8tKKAwC6yuerl1TwHcY2Izfgk?gv=true" as string,
   linkedin: "https://www.linkedin.com/in/exequiel-boribor-98a832189",
   github: "https://github.com/boriborexequiel24-AM",
   availability: "Open to roles and contract work",
@@ -64,6 +68,13 @@ export const sections = {
     intro:
       "I'm open to a role on a team and to contract work. The fastest way to find out if I'm a fit is twenty minutes talking about the actual process.",
     cvLink: "View my CV",
+    messageLink: "Send a message",
+  },
+  booking: {
+    label: "Book a call",
+    title: "Book a call",
+    newTab: "Open in a new tab",
+    contactLabel: "Calendar",
   },
   contact: {
     eyebrow: "Contact",

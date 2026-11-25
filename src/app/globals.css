@@ -194,6 +194,11 @@ html:has(dialog[open]) {
   [data-reveal], .line { opacity: 1 !important; translate: none !important; }
 }
 
+/* Booking page, see components/BookCall.tsx */
+.booking::backdrop { background: rgb(0 0 0 / 0.55); }
+.booking[open] { animation: enter 300ms var(--motion-ease); }
+.booking[open]::backdrop { animation: fade-in 200ms ease-out; }
+
 /* Workflow drawings beside the headings, see components/FlowLine.tsx. First the drawing
    itself, then the lit copy on top that the run switches on. */
 .flow-edge { stroke: var(--line-strong); stroke-width: 1.5; stroke-dasharray: 1; }
@@ -323,6 +328,7 @@ html:has(dialog[open]) {
   .animate-menu-in, .animate-fade-in, .draw-check { animation: none; }
   .enter, .enter-down, .word, .portrait::after { animation: none; }
   .lift { transition: none; }
+  .booking[open], .booking[open]::backdrop { animation: none; }
   .flow-pause { display: none; }
   .lift:hover { translate: none; }
   .press, .arrow, .nav-link::after { transition: none; }

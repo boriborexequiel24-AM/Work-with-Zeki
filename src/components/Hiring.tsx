@@ -1,5 +1,9 @@
 import { engagement, profile, sections } from "@/data/content";
+import { BookCall } from "./BookCall";
 import { Arrow, ButtonLink, Section, SectionHeader } from "./ui";
+
+const filled =
+  "inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-on-accent press hover:opacity-90";
 
 // Replaces the old pricing table. Zeki is open to a role and to contract work,
 // so this section invites the conversation instead of quoting a number: the
@@ -38,14 +42,18 @@ export function Hiring() {
             <h3 className="text-xl font-semibold tracking-tight text-balance">{engagement.intro.title}</h3>
             <p className="mt-3 text-pretty text-muted">{engagement.intro.body}</p>
           </div>
-          <div className="flex shrink-0 flex-wrap items-center gap-3">
-            <a
-              href="#contact"
-              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-medium text-on-accent press hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            >
-              {engagement.intro.cta}
-              <Arrow />
-            </a>
+          <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <BookCall className={filled} />
+            {profile.booking ? (
+              <ButtonLink href="#contact" variant="ghost">
+                {sections.hiring.messageLink}
+              </ButtonLink>
+            ) : (
+              <a href="#contact" className={filled}>
+                {engagement.intro.cta}
+                <Arrow />
+              </a>
+            )}
             <ButtonLink href={profile.cv} variant="ghost" external>
               {sections.hiring.cvLink}
             </ButtonLink>
