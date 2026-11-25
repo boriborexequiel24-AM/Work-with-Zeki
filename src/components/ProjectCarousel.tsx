@@ -134,6 +134,15 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
           ref={tabsRef}
           role="tablist"
           aria-label="Projects"
+          onKeyDown={(e) => {
+            const last = projects.length - 1;
+            const to = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: last }[e.key];
+            if (to === undefined) return;
+            e.preventDefault();
+            const next = Math.max(0, Math.min(last, to));
+            goTo(next);
+            (e.currentTarget.children[next] as HTMLElement).focus({ preventScroll: true });
+          }}
           className="flex min-w-0 gap-1.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {projects.map((p, i) => {
@@ -145,15 +154,16 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
                 role="tab"
                 id={`project-tab-${i}`}
                 aria-selected={on}
+                tabIndex={on ? 0 : -1}
                 aria-controls={`project-${i}`}
                 onClick={() => goTo(i)}
-                className={`inline-flex shrink-0 items-baseline gap-2.5 rounded-full border px-4 py-2 text-sm transition-colors ${
+                className={`inline-flex shrink-0 items-baseline gap-2.5 rounded-full border px-4 py-3 text-sm md:py-2 transition-colors ${
                   on
                     ? "border-accent/60 bg-accent-soft text-accent"
                     : "border-line bg-surface text-muted hover:border-line-strong hover:text-fg"
                 }`}
               >
-                <span className={`font-mono text-[11px] ${on ? "text-accent" : "text-subtle"}`}>
+                <span className={`font-mono text-xs ${on ? "text-accent" : "text-subtle"}`}>
                   {pad(i)}
                 </span>
                 {p.title}
@@ -227,7 +237,7 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
                 p.shots.length ? "lg:col-span-5" : "lg:col-span-12"
               }`}
             >
-              <p className="font-mono text-[11px] text-accent">{p.tagline}</p>
+              <p className="font-mono text-xs text-accent">{p.tagline}</p>
               <h3 className="mt-4 text-2xl font-medium tracking-tight text-balance">{p.title}</h3>
               <p className="mt-3 text-sm text-pretty text-muted">{p.summary}</p>
 
@@ -237,7 +247,7 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
                     <p className="text-lg font-semibold tracking-tight text-accent tabular-nums sm:text-xl">
                       {f.value}
                     </p>
-                    <p className="mt-1 font-mono text-[11px] text-pretty text-muted">{f.label}</p>
+                    <p className="mt-1 font-mono text-xs text-pretty text-muted">{f.label}</p>
                   </li>
                 ))}
               </ul>
@@ -254,7 +264,7 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
                     href={p.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-accent underline-offset-4 hover:underline"
+                    className="inline-flex min-h-11 items-center gap-2 text-accent underline-offset-4 hover:underline"
                   >
                     Try the live demo <Arrow />
                   </a>
@@ -264,7 +274,7 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
                     href={p.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
+                    className="inline-flex min-h-11 items-center gap-2 text-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
                   >
                     Read the code <Arrow />
                   </a>
@@ -309,7 +319,7 @@ function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string 
         })}
       </div>
 
-      <p className="min-h-8 font-mono text-[11px] text-pretty text-subtle" aria-live="polite">
+      <p className="min-h-8 font-mono text-xs text-pretty text-subtle" aria-live="polite">
         {shot.caption}
       </p>
 
@@ -399,7 +409,7 @@ function StepButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={prev ? "Previous project" : "Next project"}
-      className="grid size-9 place-items-center rounded-full border border-line-strong bg-surface text-fg press enabled:hover:bg-fg enabled:hover:text-bg disabled:opacity-35"
+      className="grid size-11 place-items-center md:size-9 rounded-full border border-line-strong bg-surface text-fg press enabled:hover:bg-fg enabled:hover:text-bg disabled:opacity-35"
     >
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path

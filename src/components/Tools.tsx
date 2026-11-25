@@ -27,13 +27,13 @@ export function Tools() {
         <div className="flex flex-wrap items-center gap-x-4 gap-y-3 font-mono text-xs">
           <a
             href="#work"
-            className="inline-flex items-center gap-2 text-accent underline-offset-4 hover:underline"
+            className="inline-flex min-h-11 items-center gap-2 text-accent underline-offset-4 hover:underline"
           >
             {sections.tools.workLink} <Arrow />
           </a>
           <a
             href="#experience"
-            className="inline-flex items-center gap-2 text-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
+            className="inline-flex min-h-11 items-center gap-2 text-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
           >
             {sections.tools.experienceLink} <Arrow />
           </a>
@@ -42,7 +42,7 @@ export function Tools() {
             type="button"
             onClick={() => setPaused((p) => !p)}
             aria-label={paused ? "Play the tools carousel" : "Pause the tools carousel"}
-            className="grid size-9 place-items-center rounded-full border border-line-strong text-fg press hover:bg-fg hover:text-bg motion-reduce:hidden"
+            className="grid size-11 place-items-center md:size-9 rounded-full border border-line-strong text-fg press hover:bg-fg hover:text-bg motion-reduce:hidden"
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
               <path d={paused ? "M4 2.5v11l9-5.5z" : "M4 3h3v10H4zM9 3h3v10H9z"} />
@@ -75,7 +75,7 @@ function Track({ groups, reverse, copy }: { groups: ToolGroup[]; reverse: boolea
     >
       {groups.map((g) => (
         <div key={g.label} className="flex items-center gap-2 motion-reduce:flex-wrap">
-          <h3 className="mr-1 font-mono text-[11px] tracking-widest whitespace-nowrap text-subtle uppercase">
+          <h3 className="mr-1 font-mono text-xs tracking-widest whitespace-nowrap text-subtle uppercase">
             {g.label}
           </h3>
           <ul className="flex gap-2 motion-reduce:flex-wrap">

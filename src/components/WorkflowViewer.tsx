@@ -2,8 +2,52 @@
 
 import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
+import { imageReady, now, withTransition } from "@/lib/transition";
 
-export type Shot = { src: string; title: string; alt: string };
+export type Shot = { src: string; title: string; alt: string; fit?: boolean };
+
+/**
+ * Opens a screenshot from its cover. The cover that was clicked grows into the viewer, and
+ * the viewer shrinks back into it. Both carry the same transition name, one before the
+ * change and one after.
+ */
+export function useViewer() {
+  const [open, setOpen] = useState<Shot | null>(null);
+  const coverRef = useRef<HTMLElement | null>(null);
+
+  async function openShot(cover: HTMLElement, shot: Shot) {
+    coverRef.current = cover;
+    if (!(await imageReady(shot.src, 400))) {
+      setOpen(shot);
+      return;
+    }
+    cover.style.viewTransitionName = "shot";
+    withTransition("viewer", async () => {
+      cover.style.viewTransitionName = "";
+      now(() => setOpen(shot));
+      const image = document.querySelector<HTMLImageElement>("dialog[open] img");
+      await Promise.race([image?.decode().catch(() => {}), new Promise((r) => setTimeout(r, 200))]);
+    });
+  }
+
+  function closeShot(dialog: HTMLDialogElement | null) {
+    const cover = coverRef.current;
+    withTransition(
+      "viewer",
+      () => {
+        // Closing it first gives focus back to the cover.
+        dialog?.close();
+        now(() => setOpen(null));
+        if (cover) cover.style.viewTransitionName = "shot";
+      },
+      () => {
+        if (cover) cover.style.viewTransitionName = "";
+      },
+    );
+  }
+
+  return { openShot, viewer: open && <WorkflowViewer key={open.src} shot={open} onClose={closeShot} /> };
+}
 
 /**
  * A workflow screenshot over the whole screen. It opens at its original size, where the
@@ -13,7 +57,7 @@ export type Shot = { src: string; title: string; alt: string };
  * It is a native modal <dialog>, so Escape closes it, focus stays inside, and focus goes
  * back to the card that opened it. The parent does the closing, because it animates it.
  */
-export function WorkflowViewer({
+function WorkflowViewer({
   shot,
   onClose,
 }: {
@@ -21,7 +65,7 @@ export function WorkflowViewer({
   onClose: (dialog: HTMLDialogElement | null) => void;
 }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [fit, setFit] = useState(false);
+  const [fit, setFit] = useState(shot.fit ?? false);
 
   // A layout effect, so it is open by the time a transition captures the page.
   useLayoutEffect(() => {
@@ -32,7 +76,7 @@ export function WorkflowViewer({
   const close = () => onClose(dialogRef.current);
 
   const button =
-    "inline-flex h-9 items-center justify-center rounded-lg border border-line-strong px-3 text-xs text-fg press hover:bg-fg hover:text-bg";
+    "inline-flex h-11 items-center md:h-9 justify-center rounded-lg border border-line-strong px-3 text-xs text-fg press hover:bg-fg hover:text-bg";
 
   return (
     <dialog
@@ -53,7 +97,7 @@ export function WorkflowViewer({
             <button type="button" onClick={() => setFit((f) => !f)} className={button}>
               {fit ? "Original size" : "Fit to screen"}
             </button>
-            <button type="button" onClick={close} aria-label="Close" className={`${button} w-9 px-0`}>
+            <button type="button" onClick={close} aria-label="Close" className={`${button} w-11 px-0 md:w-9`}>
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>

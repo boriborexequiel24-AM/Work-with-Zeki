@@ -11,7 +11,7 @@ export function Footer() {
             href={profile.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-fg"
+            className="inline-flex min-h-11 items-center transition-colors hover:text-fg"
           >
             GitHub
           </a>
@@ -19,7 +19,7 @@ export function Footer() {
             href={profile.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-fg"
+            className="inline-flex min-h-11 items-center transition-colors hover:text-fg"
           >
             LinkedIn
           </a>

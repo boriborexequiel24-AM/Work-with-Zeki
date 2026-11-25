@@ -13,11 +13,21 @@ export const profile = {
   availability: "Open to roles and contract work",
   photo: "/images/profile.png",
   logo: "/images/logo.png",
+  site: "https://workwithzeki.vercel.app",
+  // Made from docs/cv/cv.html.
+  cv: "/Exequiel-Boribor-CV.pdf",
 };
 
 // Each section's heading, in page order.
 export const sections = {
-  hero: { before: "I build automations that", accent: "run the business", after: "for you." },
+  hero: {
+    before: "I build automations that",
+    accent: "run the business",
+    after: "for you.",
+    demoLink: "Try a live demo",
+    workLink: "See workflows",
+    cvLink: "View my CV",
+  },
   aiApps: {
     eyebrow: "Built with Claude Code",
     title: "AI apps and agents, shipped as working software.",
@@ -37,7 +47,13 @@ export const sections = {
     title: "Automations I've designed and built.",
     // The number of projects goes in front.
     intro: "workflows. Here's what each one does, what it gives the business, and the stack behind it. Click one to see it full size.",
+    problemLabel: "Problem:",
+    solutionLabel: "Solution:",
     resultLabel: "Result:",
+    demoLink: "Try the live demo",
+    // The number goes in between.
+    showAll: ["Show all", "workflows"],
+    showFewer: "Show fewer",
   },
   experience: { eyebrow: "Experience", title: "Where I've done the work." },
   hiring: {
@@ -45,13 +61,17 @@ export const sections = {
     title: "Let's start with a conversation.",
     intro:
       "I'm open to a role on a team and to contract work. The fastest way to find out if I'm a fit is twenty minutes talking about the actual process.",
+    cvLink: "View my CV",
   },
   contact: {
     eyebrow: "Contact",
     title: "Have a process that eats your team's time?",
     titleAccent: "Let's automate it.",
     intro:
-      "I'm open to a role on a team and to contract work. Tell me about the role, or about the process you want fixed, and I'll reply within a day.",
+      "I'm open to a role on a team and to contract work. Tell me about the role, or about the process you want fixed, and I'll reply within one business day.",
+    messageLabel: "What can I help with?",
+    messagePlaceholder: "A role you're hiring for, or a process that takes too much of your week.",
+    sent: "Thanks, your message is in. I'll get back to you within one business day.",
   },
 };
 
@@ -153,10 +173,10 @@ export const experience: Experience[] = [
     tools: ["n8n", "JobNimbus", "OpenAI API", "Anthropic API", "Gmail", "Google Sheets"],
   },
   {
-    role: "AI UGC Content Automation System",
-    org: "Contract / Independent",
-    period: "Contract",
-    location: "Netherlands-based client",
+    role: "Workflow & AI Automation Specialist",
+    org: "AI UGC Content Automation System",
+    period: "Project-based",
+    location: "Contract · Netherlands-based client",
     summary:
       "Started with simple spreadsheet-driven automations and evolved them into a fully managed AI content system. It now produces UGC-style assets at scale, from brief to final delivery, without manual intervention.",
     highlights: [
@@ -389,7 +409,10 @@ export type Project = {
    * e.g. { saved: "~8 hrs/week", basis: "~20 emails/day × ~5 min each" }
    */
   estimate?: { saved: string; basis: string };
-  featured?: boolean;
+  /** A demo anyone can use. */
+  liveUrl?: string;
+  /** Shown large, first, with the problem it solves. Put these at the top of the list. */
+  featured?: { problem: string };
 };
 
 export const projects: Project[] = [
@@ -405,7 +428,10 @@ export const projects: Project[] = [
     // From Zeki (2026-11-12): 20 emails/day normally, up to 40 when busy, 5-10 min each by hand.
     // Low end: 20 × 5 min × 5 days ≈ 8.3 hrs/week. High end: 40 × 10 min × 5 days ≈ 33 hrs/week.
     estimate: { saved: "8+ hrs/week", basis: "20 to 40 carrier emails/day × 5 to 10 min each" },
-    featured: true,
+    featured: {
+      problem:
+        "The inbox got 20 to 40 carrier emails a day. Each one took 5 to 10 minutes to read, enter in the CRM and pass to a rep.",
+    },
   },
   // The n8n side of two projects in `codeProjects`. Each cover is that project's own
   // n8n screenshots, stacked on one canvas at the same zoom.
@@ -418,6 +444,10 @@ export const projects: Project[] = [
       "Four workflows take an invoice from Gmail or an upload to Xero: OpenAI reads the PDF, validation checks run, and a signature-checked Slack click approves it and posts the bill with its PDF attached.",
     result: "No manual data entry, repeat uploads caught, and nothing posted without approval.",
     tools: ["n8n", "OpenAI", "Slack", "Xero"],
+    liveUrl: "https://ai-invoice-processing-six.vercel.app",
+    featured: {
+      problem: "Someone has to open every invoice, retype it and check the numbers before it can be paid.",
+    },
   },
   {
     title: "Lead Warden: AI Lead Follow-Up",
@@ -428,6 +458,10 @@ export const projects: Project[] = [
       "Six workflows answer every new lead: AI reads the message, picks one next step and replies by email, the owner approves prices in Slack, and quiet leads get a follow-up on day 1, 3 and 7.",
     result: "Replies in seconds, day or night, no forgotten follow-ups, and no price sent without approval.",
     tools: ["n8n", "OpenAI", "Gmail", "Slack"],
+    liveUrl: "https://leadwarden.vercel.app",
+    featured: {
+      problem: "A lead that arrives after hours or goes quiet is easy to lose, and nobody has time to chase them all.",
+    },
   },
   {
     title: "Auto-Supplement Engine",
@@ -438,7 +472,6 @@ export const projects: Project[] = [
       "Retrieves claim files from Drive, classifies documents across multi-branch pipelines (photos, estimates, measurements), sends them to Claude, and auto-generates HTML supplement reports back to Drive and Gmail.",
     result: "Time saved on every claim, no manual file sorting, and the same report format each time.",
     tools: ["n8n", "Anthropic Claude", "Google Drive", "Gmail"],
-    featured: true,
   },
   {
     title: "Suit Limitation + Appraisal Compliance Tracker",
@@ -449,7 +482,6 @@ export const projects: Project[] = [
       "Monitors active JobNimbus claims, calculates elapsed time with custom JS logic, and routes into 30/60/120-day escalations with CRM notes, email alerts, and a Google Sheets audit trail.",
     result: "Early warning on deadlines, no manual claim checks, and a full audit trail.",
     tools: ["n8n", "JobNimbus", "Gmail", "Google Sheets"],
-    featured: true,
   },
   {
     title: "AI UGC Content Automation System",
@@ -460,7 +492,6 @@ export const projects: Project[] = [
       "Scheduled multi-model prompting, Nano Banana image generation, ElevenLabs voiceover, video generation, and approval routing with Cloudinary uploads.",
     result: "Less manual effort, faster turnaround, and output that scales.",
     tools: ["n8n", "ElevenLabs", "Nano Banana", "Cloudinary"],
-    featured: true,
   },
   {
     title: "Carrier Follow-Up Sequence",
@@ -561,9 +592,9 @@ export const projects: Project[] = [
 ];
 
 export const certifications = [
-  { platform: "Zapier", title: "AI Automation with Zapier", date: "Oct 2025", image: "/images/certs/zapier.png" },
-  { platform: "Make", title: "AI Automation with Make.com", date: "Nov 2025", image: "/images/certs/make.png" },
-  { platform: "n8n", title: "AI Automation with n8n", date: "Dec 2025", image: "/images/certs/n8n.png" },
+  { platform: "Zapier", title: "AI Automation with Zapier", date: "Oct 2025", image: "/images/certs/zapier.webp" },
+  { platform: "Make", title: "AI Automation with Make.com", date: "Nov 2025", image: "/images/certs/make.webp" },
+  { platform: "n8n", title: "AI Automation with n8n", date: "Dec 2025", image: "/images/certs/n8n.webp" },
 ].map((c) => ({ ...c, issuer: "Technical Virtual Assistants PH" }));
 
 // How I'm open to working. Deliberately no rates: what the work costs depends

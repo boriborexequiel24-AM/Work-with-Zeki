@@ -47,7 +47,7 @@ export function SectionHeader({
 
 export function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-md border border-line bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-muted">
+    <span className="inline-flex items-center rounded-md border border-line bg-surface-2 px-2 py-0.5 font-mono text-xs text-muted">
       {children}
     </span>
   );
@@ -65,7 +65,7 @@ export function ButtonLink({
   external?: boolean;
 }) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium press focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium press focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
   const styles =
     variant === "primary"
       ? "bg-fg text-bg hover:bg-accent hover:text-on-accent"

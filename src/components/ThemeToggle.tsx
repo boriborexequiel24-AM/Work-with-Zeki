@@ -20,7 +20,7 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label="Toggle light and dark theme"
       title="Toggle theme"
-      className="grid size-9 place-items-center rounded-lg border border-line text-muted press hover:border-line-strong hover:text-fg"
+      className="grid size-11 place-items-center md:size-9 rounded-lg border border-line text-muted press hover:border-line-strong hover:text-fg"
     >
       {/* moon: shown in light mode */}
       <svg className="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">

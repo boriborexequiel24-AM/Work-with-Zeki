@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { profile } from "@/data/content";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,10 +13,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "Exequiel Boribor | Workflow & AI Automation Specialist";
+const description =
+  "Workflow automations and AI apps built with n8n, Make, Zapier, Next.js and LLMs. Live demos you can try and public code you can read.";
+
+// The preview picture is opengraph-image.png, next to this file.
 export const metadata: Metadata = {
-  title: "Exequiel Boribor | Workflow & AI Automation Specialist",
-  description:
-    "Enterprise workflow automation, AI integration, and CRM systems built with n8n, Make, Zapier, and LLMs.",
+  metadataBase: new URL(profile.site),
+  title,
+  description,
+  alternates: { canonical: "/" },
+  openGraph: { title, description, url: "/", siteName: "Zeki Boribor", type: "website", locale: "en_US" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 // Runs before first paint so the page never flashes the wrong theme.
@@ -33,7 +42,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="min-h-screen bg-bg font-sans text-fg">{children}</body>
+      <body className="min-h-screen bg-bg font-sans text-fg">
+        <a
+          href="#main"
+          className="sr-only rounded-lg bg-fg text-sm font-medium text-bg focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-60 focus:px-4 focus:py-3"
+        >
+          Skip to content
+        </a>
+        {children}
+      </body>
     </html>
   );
 }

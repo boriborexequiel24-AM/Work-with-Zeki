@@ -73,6 +73,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Keyboard focus is always visible. In a layer, so a component can still adjust it. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
 body {
   background: var(--bg);
   color: var(--fg);

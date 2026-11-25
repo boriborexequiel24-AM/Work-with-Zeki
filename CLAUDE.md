@@ -53,7 +53,7 @@ All of its existing content (bio, experience, 14 projects, certs, pricing, conta
 - The API route needs a Node server (e.g. Vercel). It won't work with a pure static export.
 - Don't invent metrics. Every number on the site has to be backed by real work.
 - `public/`: static assets
-- `docs/`: reference material, including the content inventory from the old site
+- `docs/`: reference material, including the content inventory from the old site, and `docs/cv/` (source of the CV in `public/`). Past client work is under NDA: no client names, quotes or addresses, also in screenshots
 - `.claude/`: Claude Code project config
 
 ## Notes for Claude

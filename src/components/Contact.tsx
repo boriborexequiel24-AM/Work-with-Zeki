@@ -40,7 +40,7 @@ export function Contact() {
 
   // 16px text on phones: iOS zooms the page in on anything smaller.
   const field =
-    "w-full rounded-lg border border-line bg-bg px-4 py-3 text-base sm:text-sm placeholder:text-subtle focus:border-accent/60 focus:outline-none";
+    "w-full rounded-lg border border-line bg-bg px-4 py-3 text-base sm:text-sm placeholder:text-subtle focus:border-accent/60";
 
   return (
     <Section id="contact" className="border-t border-line">
@@ -56,11 +56,11 @@ export function Contact() {
             }
             intro={sections.contact.intro}
           />
-          <dl className="space-y-5">
+          <dl className="space-y-3">
             <div>
               <dt className="font-mono text-xs text-subtle uppercase">Email</dt>
               <dd>
-                <a href={`mailto:${profile.email}`} className="text-lg hover:text-accent">
+                <a href={`mailto:${profile.email}`} className="inline-block py-2 text-lg hover:text-accent">
                   {profile.email}
                 </a>
               </dd>
@@ -72,7 +72,7 @@ export function Contact() {
                   href={profile.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lg break-words hover:text-accent"
+                  className="inline-block max-w-full py-2 text-lg break-words hover:text-accent"
                 >
                   {short(profile.linkedin)}
                 </a>
@@ -85,7 +85,7 @@ export function Contact() {
                   href={profile.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lg break-words hover:text-accent"
+                  className="inline-block max-w-full py-2 text-lg break-words hover:text-accent"
                 >
                   {short(profile.github)}
                 </a>
@@ -106,8 +106,8 @@ export function Contact() {
             </label>
           </div>
           <label className="block">
-            <span className="mb-1.5 block text-xs text-muted">What do you want to automate?</span>
-            <textarea name="message" required rows={6} className={`${field} resize-none`} placeholder="We spend hours every week copying leads from email into our CRM…" />
+            <span className="mb-1.5 block text-xs text-muted">{sections.contact.messageLabel}</span>
+            <textarea name="message" required rows={6} className={`${field} resize-none`} placeholder={sections.contact.messagePlaceholder} />
           </label>
           {/* Honeypot: hidden from people, filled by bots. The name must mean nothing to
               autofill, or a real visitor's browser fills it in and their message is dropped. */}
@@ -148,7 +148,7 @@ export function Contact() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                Thanks, your message is in. I&apos;ll get back to you within a day.
+                {sections.contact.sent}
               </span>
             )}
             {status.state === "error" && (

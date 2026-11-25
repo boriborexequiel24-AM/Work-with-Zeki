@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <main>
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
         <AiApps />
         <Tools />

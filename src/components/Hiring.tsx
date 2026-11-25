@@ -1,5 +1,5 @@
-import { engagement, sections } from "@/data/content";
-import { Arrow, Section, SectionHeader } from "./ui";
+import { engagement, profile, sections } from "@/data/content";
+import { Arrow, ButtonLink, Section, SectionHeader } from "./ui";
 
 // Replaces the old pricing table. Zeki is open to a role and to contract work,
 // so this section invites the conversation instead of quoting a number: the
@@ -9,7 +9,9 @@ export function Hiring() {
     <Section id="hiring" className="border-t border-line">
       <SectionHeader
         index="05"
-        {...sections.hiring}
+        eyebrow={sections.hiring.eyebrow}
+        title={sections.hiring.title}
+        intro={sections.hiring.intro}
       />
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {engagement.openTo.map((o) => (
@@ -35,13 +37,18 @@ export function Hiring() {
             <h3 className="text-xl font-semibold tracking-tight text-balance">{engagement.intro.title}</h3>
             <p className="mt-3 text-pretty text-muted">{engagement.intro.body}</p>
           </div>
-          <a
-            href="#contact"
-            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-medium text-on-accent press hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          >
-            {engagement.intro.cta}
-            <Arrow />
-          </a>
+          <div className="flex shrink-0 flex-wrap items-center gap-3">
+            <a
+              href="#contact"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-medium text-on-accent press hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              {engagement.intro.cta}
+              <Arrow />
+            </a>
+            <ButtonLink href={profile.cv} variant="ghost" external>
+              {sections.hiring.cvLink}
+            </ButtonLink>
+          </div>
         </div>
         <dl className="mt-8 grid gap-5 border-t border-line pt-7 sm:grid-cols-3">
           {engagement.facts.map((f) => (

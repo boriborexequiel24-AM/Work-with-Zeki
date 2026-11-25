@@ -18,7 +18,7 @@ export function WhyAutomate() {
                 href={s.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-auto pt-5 font-mono text-[11px] text-subtle underline decoration-line-strong underline-offset-4 transition-colors hover:text-fg"
+                className="mt-auto pt-5 font-mono text-xs text-subtle underline decoration-line-strong underline-offset-4 transition-colors hover:text-fg"
               >
                 {s.source} ↗
               </a>

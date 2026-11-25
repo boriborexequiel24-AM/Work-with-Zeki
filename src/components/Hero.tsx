@@ -5,7 +5,7 @@ import { Arrow, ButtonLink, Container } from "./ui";
 function Portrait() {
   return (
     <figure className="mx-auto w-full max-w-sm overflow-hidden rounded-2xl border border-line bg-surface lg:mx-0 lg:ml-auto">
-      <div className="flex items-center justify-between border-b border-line px-4 py-2.5 font-mono text-[11px] text-subtle">
+      <div className="flex items-center justify-between border-b border-line px-4 py-2.5 font-mono text-xs text-subtle">
         <span>~/zeki</span>
         <span className="flex items-center gap-1.5">
           <span className="animate-blink size-1.5 rounded-full bg-accent" />
@@ -21,7 +21,7 @@ function Portrait() {
         sizes="(min-width: 1024px) 384px, 90vw"
         className="aspect-[4/5] w-full object-cover object-top"
       />
-      <figcaption className="border-t border-line px-4 py-3 font-mono text-[11px]">
+      <figcaption className="border-t border-line px-4 py-3 font-mono text-xs">
         <span className="text-fg">{profile.name}</span>
         <span className="block text-subtle">{profile.role}</span>
       </figcaption>
@@ -43,18 +43,21 @@ export function Hero() {
           </h1>
           <p className="mt-6 max-w-xl text-lg text-pretty text-muted">{profile.tagline}</p>
           <div className="mt-9 flex flex-wrap gap-3">
-            <ButtonLink href="#work">
-              See my work <Arrow />
+            <ButtonLink href="#ai-apps">
+              {sections.hero.demoLink} <Arrow />
             </ButtonLink>
-            <ButtonLink href="#contact" variant="ghost">
-              Get in touch
+            <ButtonLink href="#work" variant="ghost">
+              {sections.hero.workLink}
+            </ButtonLink>
+            <ButtonLink href={profile.cv} variant="ghost" external>
+              {sections.hero.cvLink}
             </ButtonLink>
           </div>
 
           <dl className="mt-14 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label}>
-                <dt className="font-mono text-[11px] tracking-wide text-subtle uppercase">{s.label}</dt>
+                <dt className="font-mono text-xs tracking-wide text-subtle uppercase">{s.label}</dt>
                 <dd className="mt-1 text-2xl font-semibold tabular-nums">{s.value}</dd>
               </div>
             ))}

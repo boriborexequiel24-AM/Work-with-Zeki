@@ -38,7 +38,7 @@ export function MobileMenu() {
         aria-expanded={open}
         aria-controls="mobile-menu"
         aria-label={open ? "Close menu" : "Open menu"}
-        className="grid size-9 place-items-center rounded-lg border border-line text-muted press hover:border-line-strong hover:text-fg"
+        className="grid size-11 place-items-center rounded-lg border border-line text-muted press hover:border-line-strong hover:text-fg"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path
