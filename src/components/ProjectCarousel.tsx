@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { sections, type CodeProject } from "@/data/content";
-import { Arrow, ButtonLink, DemoLink, Tag } from "./ui";
+import { ButtonLink, DemoLink, Tag } from "./ui";
 
 /**
  * One project per slide, with a tab for each project above the card.
@@ -228,15 +228,13 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
             aria-labelledby={`project-tab-${i}`}
             // Tabbing into the other slide's links brings that slide into view.
             onFocus={() => i !== index && goTo(i)}
-            className="grid w-full shrink-0 snap-start lg:grid-cols-12"
+            className={`grid w-full shrink-0 snap-start ${
+              p.shots.length ? "lg:grid-cols-2 min-[72rem]:grid-cols-[1.25fr_1fr]" : ""
+            }`}
           >
             <Screens shots={p.shots} label={p.title} />
 
-            <div
-              className={`flex flex-col p-6 sm:p-8 ${
-                p.shots.length ? "lg:col-span-5" : "lg:col-span-12"
-              }`}
-            >
+            <div className="flex min-w-0 flex-col p-6 sm:p-8">
               <p className="font-mono text-xs text-accent">{p.tagline}</p>
               <h3 className="mt-4 text-2xl font-medium tracking-tight text-balance">{p.title}</h3>
               <p className="mt-3 text-sm text-pretty text-muted">{p.summary}</p>
@@ -258,16 +256,17 @@ export function ProjectCarousel({ projects }: { projects: CodeProject[] }) {
                 ))}
               </div>
 
-              <div className="mt-auto flex flex-col gap-3 pt-7 sm:flex-row sm:flex-wrap">
+              {/* Side by side from sm up, sharing the width of the row. */}
+              <div className="mt-auto flex flex-col gap-2 pt-7 sm:flex-row sm:*:grow sm:*:px-3 sm:*:whitespace-nowrap">
                 {p.liveUrl && <DemoLink href={p.liveUrl}>{sections.aiApps.demoLink}</DemoLink>}
                 {p.caseStudy && (
                   <ButtonLink href={`/work/${p.caseStudy}`} variant="ghost">
-                    {sections.caseStudy.link}
+                    {sections.caseStudy.shortLink}
                   </ButtonLink>
                 )}
                 {p.repoUrl && (
                   <ButtonLink href={p.repoUrl} variant="ghost" external>
-                    {sections.aiApps.codeLink} <Arrow />
+                    {sections.aiApps.codeLink}
                   </ButtonLink>
                 )}
               </div>
@@ -296,7 +295,7 @@ function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string 
   };
 
   return (
-    <div className="flex flex-col gap-3 border-b border-line bg-bg p-4 sm:p-6 lg:col-span-7 lg:border-r lg:border-b-0">
+    <div className="flex min-w-0 flex-col gap-3 border-b border-line bg-bg p-4 sm:p-6 lg:border-r lg:border-b-0">
       <div
         className={`relative aspect-[16/10] overflow-hidden rounded-xl border border-line ${
           shot.fit === "contain" ? "bg-canvas" : "bg-bg"
@@ -315,10 +314,17 @@ function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string 
       </p>
 
       {shots.length > 1 && (
-        // On wider screens every thumbnail fits on one row, however many there are.
+        // On a tablet every thumbnail fits on one row, however many there are. Beside the
+        // text they take two rows and share the height that is left, and the first one is wide
+        // when the count is odd, so there is no hole.
         <div
-          className="grid grid-cols-5 gap-1.5 sm:grid-cols-(--thumb-cols)"
-          style={{ "--thumb-cols": `repeat(${shots.length}, minmax(0, 1fr))` } as CSSProperties}
+          className="grid grid-cols-5 gap-1.5 sm:grid-cols-(--thumb-cols) lg:max-h-64 lg:flex-1 lg:auto-rows-fr lg:grid-cols-(--thumb-cols-lg)"
+          style={
+            {
+              "--thumb-cols": `repeat(${shots.length}, minmax(0, 1fr))`,
+              "--thumb-cols-lg": `repeat(${Math.ceil(shots.length / 2)}, minmax(0, 1fr))`,
+            } as CSSProperties
+          }
         >
           {shots.map((s, i) => (
             <button
@@ -327,7 +333,7 @@ function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string 
               onClick={() => pick(i)}
               aria-pressed={i === active}
               aria-label={`${label}: ${s.caption}`}
-              className={`relative aspect-[16/10] overflow-hidden rounded-md border transition ${
+              className={`relative aspect-[16/10] overflow-hidden rounded-md lg:aspect-auto lg:min-h-14 ${i === 0 && shots.length % 2 ? "lg:col-span-2" : ""} border transition ${
                 s.fit === "contain" ? "bg-canvas" : "bg-bg"
               } ${
                 i === active
@@ -340,8 +346,11 @@ function Screens({ shots, label }: { shots: CodeProject["shots"]; label: string 
                 alt=""
                 fill
                 draggable={false}
-                sizes="96px"
-                className={s.fit === "contain" ? "object-contain" : "object-cover object-left-top"}
+                // Beside the text a thumbnail shows a zoomed-in part, so it needs a larger file.
+                sizes={s.fit === "contain" ? "(min-width: 1024px) 640px, 96px" : "(min-width: 1024px) 370px, 96px"}
+                className={
+                  s.fit === "contain" ? "object-contain lg:object-cover lg:object-left-top" : "object-cover object-left-top"
+                }
               />
             </button>
           ))}
@@ -377,7 +386,7 @@ function Layer({
         fill
         draggable={false}
         onLoad={() => setReady(true)}
-        sizes="(min-width: 1152px) 640px, (min-width: 1024px) 55vw, 100vw"
+        sizes="(min-width: 1152px) 640px, (min-width: 1024px) 60vw, 100vw"
         className={contain ? "object-contain object-center" : "object-cover object-left-top"}
       />
     </div>

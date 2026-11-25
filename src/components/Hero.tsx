@@ -75,9 +75,10 @@ export function Hero() {
 
           <dl style={delay(640)} className="enter mt-14 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-8 sm:grid-cols-4">
             {stats.map((s, i) => (
-              <div key={s.label} style={delay(700 + i * 70)} className="enter">
-                <dt className="font-mono text-xs tracking-wide text-subtle uppercase">{s.label}</dt>
-                <dd className="mt-1 text-2xl font-semibold tabular-nums">{s.value}</dd>
+              <div key={s.label} style={delay(700 + i * 70)} className="enter flex flex-col-reverse justify-end">
+                {/* Narrow enough that every label takes two lines. */}
+                <dt className="mt-1 max-w-28 font-mono text-xs tracking-wide text-subtle uppercase">{s.label}</dt>
+                <dd className="text-2xl font-semibold tabular-nums">{s.value}</dd>
               </div>
             ))}
           </dl>

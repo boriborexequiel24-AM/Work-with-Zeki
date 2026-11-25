@@ -94,6 +94,7 @@ export const sections = {
   faq: { eyebrow: "Questions", title: "Quick answers before you write." },
   caseStudy: {
     link: "Read the case study",
+    shortLink: "Case study",
     home: "Home",
     back: "All work",
     breadcrumb: "Breadcrumb",
